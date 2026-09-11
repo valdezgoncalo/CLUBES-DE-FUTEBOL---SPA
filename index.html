@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Gestor de Clubes de Futebol</title>
+
     <style>
         * {
             margin: 0;
@@ -12,8 +14,15 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f4c3a 0%, #1a5d4a 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #0f4c3a 0%,
+                #1a5d4a 100%
+            );
+
             color: #1f1f1f;
             min-height: 100vh;
             padding: 20px;
@@ -28,8 +37,17 @@
             overflow: hidden;
         }
 
+        /* =========================
+           HEADER
+        ========================= */
+
         .header {
-            background: linear-gradient(135deg, #0f4c3a 0%, #1a5d4a 100%);
+            background: linear-gradient(
+                135deg,
+                #0f4c3a 0%,
+                #1a5d4a 100%
+            );
+
             color: white;
             padding: 30px;
             text-align: center;
@@ -47,6 +65,10 @@
             opacity: 0.9;
         }
 
+        /* =========================
+           TOOLBAR
+        ========================= */
+
         .toolbar {
             display: flex;
             gap: 12px;
@@ -60,7 +82,6 @@
         .search-box {
             flex: 1;
             min-width: 250px;
-            position: relative;
         }
 
         .search-box input {
@@ -81,6 +102,7 @@
         .button-group {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         button {
@@ -91,6 +113,10 @@
             cursor: pointer;
             font-weight: 500;
             transition: all 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
         }
 
         .btn-primary {
@@ -122,7 +148,7 @@
         }
 
         .btn-danger:hover {
-            background: #ffb3b3;
+            background: #d32f2f;
             color: white;
         }
 
@@ -135,9 +161,197 @@
         }
 
         .btn-info:hover {
-            background: #90caf9;
+            background: #1976d2;
             color: white;
         }
+
+        /* =========================
+           SAVE STATUS
+        ========================= */
+
+        .save-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .save-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2e7d32;
+            display: inline-block;
+        }
+
+        .save-dot.unsaved {
+            background: #f9a825;
+        }
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .dashboard {
+            padding: 30px;
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .dashboard-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(200px, 1fr)
+            );
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: linear-gradient(
+                135deg,
+                #f5f5f5 0%,
+                #fafafa 100%
+            );
+
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: #0f4c3a;
+        }
+
+        .card-label {
+            font-size: 13px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f4c3a;
+            margin-bottom: 4px;
+        }
+
+        .card-subtext {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .card.alert {
+            background: linear-gradient(
+                135deg,
+                #fff5f5 0%,
+                #fffafa 100%
+            );
+
+            border-color: #ffb3b3;
+        }
+
+        .card.alert .card-value {
+            color: #d32f2f;
+        }
+
+        .card.success {
+            background: linear-gradient(
+                135deg,
+                #f5fff5 0%,
+                #fafffe 100%
+            );
+
+            border-color: #b3ffb3;
+        }
+
+        .card.success .card-value {
+            color: #2e7d32;
+        }
+
+        /* =========================
+           LIGA SUMMARY
+        ========================= */
+
+        .ligas-resumo {
+            margin-top: 30px;
+        }
+
+        .liga-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .liga-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #0f4c3a;
+        }
+
+        .liga-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f4c3a;
+        }
+
+        .liga-stats {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(150px, 1fr)
+            );
+
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .liga-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .liga-stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .liga-stat-value {
+            color: #0f4c3a;
+            font-weight: 700;
+        }
+
+        .liga-stat.alert .liga-stat-value {
+            color: #d32f2f;
+        }
+
+        /* =========================
+           TABS
+        ========================= */
 
         .tabs {
             display: flex;
@@ -147,8 +361,7 @@
         }
 
         .tab {
-            padding: 16px 0;
-            margin: 0 20px;
+            padding: 16px 20px;
             border: none;
             background: none;
             font-size: 15px;
@@ -157,6 +370,7 @@
             cursor: pointer;
             position: relative;
             transition: color 0.2s;
+            border-radius: 0;
         }
 
         .tab:hover {
@@ -169,17 +383,13 @@
             margin-bottom: -2px;
         }
 
+        /* =========================
+           CONTENT
+        ========================= */
+
         .content {
             padding: 30px;
             overflow-x: auto;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
         }
 
         table {
@@ -204,6 +414,7 @@
         td {
             padding: 12px;
             border-bottom: 1px solid #e5e5e5;
+            vertical-align: middle;
         }
 
         tr:hover {
@@ -211,14 +422,14 @@
         }
 
         .clube-name {
-            font-weight: 500;
+            font-weight: 600;
             color: #0f4c3a;
             min-width: 150px;
         }
 
         input[type="text"],
         input[type="number"],
-        input[type="checkbox"] {
+        select {
             font-family: inherit;
             font-size: inherit;
             border: 1px solid #d0d0d0;
@@ -228,7 +439,8 @@
         }
 
         input[type="text"]:focus,
-        input[type="number"]:focus {
+        input[type="number"]:focus,
+        select:focus {
             outline: none;
             border-color: #0f4c3a;
             box-shadow: 0 0 0 2px rgba(15, 76, 58, 0.1);
@@ -266,10 +478,16 @@
             color: #721c24;
         }
 
-        .status-pendente {
-            background: #fff3cd;
-            color: #856404;
+        .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            min-width: 220px;
         }
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         .footer {
             background: #f9f9f9;
@@ -287,6 +505,7 @@
             gap: 20px;
             font-size: 13px;
             color: #666;
+            flex-wrap: wrap;
         }
 
         .stat-item {
@@ -301,6 +520,10 @@
             font-size: 16px;
         }
 
+        /* =========================
+           TOAST
+        ========================= */
+
         .toast {
             position: fixed;
             bottom: 20px;
@@ -311,7 +534,8 @@
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             animation: slideIn 0.3s ease-out;
-            z-index: 1000;
+            z-index: 5000;
+            max-width: 350px;
         }
 
         @keyframes slideIn {
@@ -319,11 +543,16 @@
                 transform: translateY(100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
+
+        /* =========================
+           EMPTY DATA
+        ========================= */
 
         .no-data {
             text-align: center;
@@ -335,42 +564,9 @@
             font-size: 15px;
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .toolbar {
-                flex-direction: column;
-            }
-
-            .search-box {
-                min-width: 100%;
-            }
-
-            .tabs {
-                padding: 0 20px;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .content {
-                padding: 15px;
-            }
-
-            table {
-                font-size: 13px;
-            }
-
-            th, td {
-                padding: 8px;
-            }
-
-            .footer {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
+        /* =========================
+           MODALS
+        ========================= */
 
         .modal {
             display: none;
@@ -383,6 +579,7 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .modal.active {
@@ -394,7 +591,9 @@
             border-radius: 8px;
             padding: 30px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
@@ -411,7 +610,8 @@
             font-size: 14px;
         }
 
-        .modal-content input {
+        .modal-content input,
+        .modal-content select {
             width: 100%;
             margin-bottom: 15px;
         }
@@ -426,882 +626,3378 @@
             flex: 1;
         }
 
-        .dashboard {
-            padding: 30px;
-            background: white;
-            border-bottom: 1px solid #e5e5e5;
-        }
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
-        .dashboard-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-        }
+        @media (max-width: 768px) {
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+            body {
+                padding: 0;
+            }
 
-        .card {
-            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s;
-        }
+            .container {
+                border-radius: 0;
+            }
 
-        .card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-color: #0f4c3a;
-        }
+            .header {
+                padding: 25px 15px;
+            }
 
-        .card-label {
-            font-size: 13px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
+            .header h1 {
+                font-size: 20px;
+            }
 
-        .card-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0f4c3a;
-            margin-bottom: 4px;
-        }
+            .toolbar {
+                flex-direction: column;
+                padding: 15px;
+                align-items: stretch;
+            }
 
-        .card-subtext {
-            font-size: 12px;
-            color: #666;
-        }
+            .search-box {
+                min-width: 100%;
+            }
 
-        .card.alert {
-            background: linear-gradient(135deg, #fff5f5 0%, #fffa fa 100%);
-            border-color: #ffb3b3;
-        }
+            .button-group {
+                width: 100%;
+            }
 
-        .card.alert .card-value {
-            color: #d32f2f;
-        }
+            .button-group button {
+                flex: 1;
+            }
 
-        .card.success {
-            background: linear-gradient(135deg, #f5fff5 0%, #fafffe 100%);
-            border-color: #b3ffb3;
-        }
+            .save-status {
+                margin-left: 0;
+            }
 
-        .card.success .card-value {
-            color: #2e7d32;
-        }
+            .tabs {
+                padding: 0 10px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
 
-        .ligas-resumo {
-            margin-top: 30px;
-        }
+            .tab {
+                white-space: nowrap;
+            }
 
-        .liga-card {
-            background: white;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
+            .dashboard {
+                padding: 20px 15px;
+            }
 
-        .liga-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #0f4c3a;
-        }
+            .content {
+                padding: 15px;
+            }
 
-        .liga-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #0f4c3a;
-        }
+            table {
+                font-size: 13px;
+                min-width: 1000px;
+            }
 
-        .liga-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            font-size: 14px;
-        }
+            th,
+            td {
+                padding: 8px;
+            }
 
-        .liga-stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .liga-stat-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .liga-stat-value {
-            color: #0f4c3a;
-            font-weight: 700;
-        }
-
-        .liga-stat.alert .liga-stat-value {
-            color: #d32f2f;
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚽ Gestor de Clubes de Futebol</h1>
-            <p>Controlo de pagamentos e dados das três ligas</p>
-        </div>
 
-        <div class="toolbar">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Buscar por nome do clube...">
-            </div>
-            <div class="button-group">
-                <button class="btn-primary" onclick="abrirModalNovoClube()">➕ Novo Clube</button>
-                <button class="btn-secondary" onclick="exportarExcel()">📊 Exportar Excel</button>
-                <button class="btn-secondary" onclick="exportarDados()">📥 Exportar JSON</button>
-                <button class="btn-secondary" onclick="limparDados()">🗑️ Limpar</button>
-                <button class="btn-primary" onclick="guardarDados()">💾 Guardar</button>
-            </div>
-        </div>
+<div class="container">
 
-        <div class="dashboard" id="dashboard"></div>
+    <!-- =========================
+         HEADER
+    ========================= -->
 
-        <div class="tabs" id="tabsContainer"></div>
-
-        <div class="content">
-            <div id="tabContent"></div>
-        </div>
-
-        <div class="footer">
-            <div class="stats">
-                <div class="stat-item">
-                    Clubes: <span class="stat-number" id="totalClubes">0</span>
-                </div>
-                <div class="stat-item">
-                    Pagos: <span class="stat-number" id="paidCount">0</span>
-                </div>
-                <div class="stat-item">
-                    Não Pagos: <span class="stat-number" id="unpaidCount">0</span>
-                </div>
-            </div>
-        </div>
+    <div class="header">
+        <h1>⚽ Gestor de Clubes de Futebol</h1>
+        <p>Controlo de pagamentos e dados das três ligas</p>
     </div>
 
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <h2>Editar Dados</h2>
-            <label>Clube</label>
-            <input type="text" id="modalClube" readonly>
-            
-            <label>NIF (Contribuinte)</label>
-            <input type="text" id="modalNIF">
-            
-            <label>IBAN/Conta Bancária</label>
-            <input type="text" id="modalIBAN">
-            
-            <label>Valor (€)</label>
-            <input type="number" id="modalValor" step="0.01">
-            
-            <label>Observações</label>
-            <input type="text" id="modalObs">
-            
-            <div class="modal-buttons">
-                <button class="btn-secondary" onclick="fecharModal()">Cancelar</button>
-                <button class="btn-primary" onclick="guardarEdicao()">Guardar</button>
-            </div>
+    <!-- =========================
+         TOOLBAR
+    ========================= -->
+
+    <div class="toolbar">
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔎 Pesquisar clube..."
+                autocomplete="off"
+            >
         </div>
+
+        <div class="button-group">
+
+            <button
+                class="btn-primary"
+                onclick="abrirModalNovoClube()"
+            >
+                ➕ Novo Clube
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="exportarExcel()"
+            >
+                📊 Exportar Excel
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="exportarDados()"
+            >
+                📥 Exportar JSON
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="importarDados()"
+            >
+                📤 Importar JSON
+            </button>
+
+            <button
+                class="btn-secondary"
+                onclick="limparDados()"
+            >
+                🗑️ Limpar
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="guardarDados()"
+            >
+                💾 Guardar
+            </button>
+
+        </div>
+
+        <div class="save-status">
+            <span class="save-dot" id="saveDot"></span>
+            <span id="saveStatusText">Dados guardados</span>
+        </div>
+
     </div>
 
-    <div class="modal" id="modalNovoClube">
-        <div class="modal-content">
-            <h2>Adicionar Novo Clube</h2>
-            
-            <label>Selecionar Liga</label>
-            <select id="novoClubeLiga" style="width: 100%; padding: 10px; border: 1px solid #d0d0d0; border-radius: 6px; margin-bottom: 15px; font-size: 14px;">
-                <option value="1 Liga">1ª Liga</option>
-                <option value="2 Liga">2ª Liga</option>
-                <option value="Liga 3">Liga 3</option>
-            </select>
-            
-            <label>Nome do Clube *</label>
-            <input type="text" id="novoClubeName" placeholder="ex: Sporting CP">
-            
-            <label>Conta Interna</label>
-            <input type="text" id="novoClubeConta" placeholder="ex: 123456">
-            
-            <label>Função</label>
-            <input type="text" id="novoClubeFuncao" placeholder="ex: MA" value="MA">
-            
-            <label>NIF (Contribuinte)</label>
-            <input type="text" id="novoClibeNIF" placeholder="ex: 500000000">
-            
-            <label>IBAN/Conta Bancária</label>
-            <input type="text" id="novoClibeIBAN" placeholder="ex: PT50 0000 0000 0000 0000 0000 0">
-            
-            <label>Valor (€)</label>
-            <input type="number" id="novoClibeValor" step="0.01" placeholder="0,00">
-            
-            <label>Contacto</label>
-            <input type="text" id="novoClibeContacto" placeholder="email ou telefone">
-            
-            <label>Observações</label>
-            <input type="text" id="novoClibeObs" placeholder="notas adicionais">
-            
-            <div class="modal-buttons">
-                <button class="btn-secondary" onclick="fecharModalNovoClube()">Cancelar</button>
-                <button class="btn-primary" onclick="guardarNovoClube()">Adicionar Clube</button>
-            </div>
-        </div>
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <div
+        class="dashboard"
+        id="dashboard"
+    ></div>
+
+    <!-- =========================
+         TABS
+    ========================= -->
+
+    <div
+        class="tabs"
+        id="tabsContainer"
+    ></div>
+
+    <!-- =========================
+         CONTENT
+    ========================= -->
+
+    <div class="content">
+
+        <div id="tabContent"></div>
+
     </div>
 
-    <div class="modal" id="modalDuplicarClube">
-        <div class="modal-content">
-            <h2>👯 Duplicar Clube</h2>
-            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Editae os dados do novo clube clonado:</p>
-            
-            <label>Nome do Clube (novo) *</label>
-            <input type="text" id="duplicarClubeName" placeholder="ex: Sporting SAD">
-            
-            <label>Conta Interna</label>
-            <input type="text" id="duplicarClubeConta" placeholder="ex: 123456">
-            
-            <label>NIF (Contribuinte)</label>
-            <input type="text" id="duplicarClibeNIF" placeholder="ex: 500000000">
-            
-            <label>IBAN/Conta Bancária</label>
-            <input type="text" id="duplicarClibeIBAN" placeholder="ex: PT50 0000 0000 0000 0000 0000 0">
-            
-            <label>Valor (€)</label>
-            <input type="number" id="duplicarClibeValor" step="0.01" placeholder="0,00">
-            
-            <label>Contacto</label>
-            <input type="text" id="duplicarClibeContacto" placeholder="email ou telefone">
-            
-            <label>Observações</label>
-            <input type="text" id="duplicarClibeObs" placeholder="notas adicionais">
-            
-            <div class="modal-buttons">
-                <button class="btn-secondary" onclick="fecharModalDuplicarClube()">Cancelar</button>
-                <button class="btn-primary" onclick="guardarDuplicacao()">Duplicar Clube</button>
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <div class="footer">
+
+        <div class="stats">
+
+            <div class="stat-item">
+                Clubes:
+                <span
+                    class="stat-number"
+                    id="totalClubes"
+                >
+                    0
+                </span>
             </div>
+
+            <div class="stat-item">
+                Pagos:
+                <span
+                    class="stat-number"
+                    id="paidCount"
+                >
+                    0
+                </span>
+            </div>
+
+            <div class="stat-item">
+                Não Pagos:
+                <span
+                    class="stat-number"
+                    id="unpaidCount"
+                >
+                    0
+                </span>
+            </div>
+
         </div>
+
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
-    <script>
-        // Dados carregados
-        const dadosLigas = {
-            '1 Liga': [
-                { CLUBES: 'BENFICA', CONTA: '5649', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'FC PORTO', CONTA: '91747', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: 'DEL. PORTO TRATA', CONTACTO: '', pago: false },
-                { CLUBES: 'SPORTING', CONTA: '422775', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'BRAGA', CONTA: '93667', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'FAMALICÃO', CONTA: '95253', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'GIL VICENTE', CONTA: '254401', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'financeiro@gilvicentefc.pt', pago: false },
-                { CLUBES: 'RIO AVE', CONTA: '304209', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'V. GUIMARÃES', CONTA: '95949', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'ESTORIL PRAIA', CONTA: '90296', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'AROUCA', CONTA: '92210', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'FC Alverca', CONTA: '402088', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'bernardomota.alverca@gmail.com', pago: false },
-                { CLUBES: 'AROUCA SDUQ', CONTA: '403728', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcarouca.pt', pago: false },
-            ],
-            '2 Liga': [
-                { CLUBES: 'AC. VICEU', CONTA: '246712', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@academicodeviseu.pt', pago: false },
-                { CLUBES: 'BENFICA B', CONTA: '5649', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'FEIRENSE', CONTA: '92201', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'secretaria@cdfeirense.pt', pago: false },
-                { CLUBES: 'FEIRENSE SAD', CONTA: '96902', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'LEIXÕES', CONTA: '94071', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@leixoessc.pt', pago: false },
-                { CLUBES: 'MAFRA', CONTA: '95252', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'financeiro@cdmafra.com', pago: false },
-                { CLUBES: 'PENAFIEL', CONTA: '92209', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcpenafiel.pt', pago: false },
-                { CLUBES: 'PENAFIEL SAD', CONTA: '400346', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcpenafiel.pt', pago: false },
-                { CLUBES: 'FC PORTO B', CONTA: '91747', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'DEL. PORTO', pago: false },
-                { CLUBES: 'FARENSE', CONTA: '94061', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'secretaria@scfarense.pt', pago: false },
-                { CLUBES: 'MARÍTIMO', CONTA: '92239', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@csmaritimo.pt', pago: false },
-                { CLUBES: 'PAÇOS FERREIRA', CONTA: '91979', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcpf.pt', pago: false },
-            ],
-            'Liga 3': [
-                { CLUBES: 'VARZIM', CONTA: '335883', FUNÇÃO: 'MA', NIF: '513610456', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'S. João Ver', CONTA: '403149', FUNÇÃO: 'MA', NIF: '515471097', IBAN: '', valor: 0, OBS: '', CONTACTO: 'marketingecomunicacao@scsjversad.pt', pago: false },
-                { CLUBES: 'AD Sanjoanense', CONTA: '304208', FUNÇÃO: 'MA', NIF: '514745827', IBAN: '', valor: 0, OBS: '', CONTACTO: 'futebolsad@ads.pt', pago: false },
-                { CLUBES: 'FAFE', CONTA: '402976', FUNÇÃO: 'MA', NIF: '501659943', IBAN: '', valor: 0, OBS: '', CONTACTO: 'adfafe@adfafe.pt', pago: false },
-                { CLUBES: 'BRAGA B', CONTA: '93667', FUNÇÃO: 'MA', NIF: '504205498', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'TROFENSE', CONTA: '94065', FUNÇÃO: 'MA', NIF: '510687628', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
-                { CLUBES: 'Amarante FC', CONTA: '309581', FUNÇÃO: 'MA', NIF: '502089415', IBAN: '', valor: 0, OBS: '', CONTACTO: 'amarantfclube@sapo.pt', pago: false },
-            ]
+</div>
+
+
+<!-- =========================================================
+     MODAL EDITAR
+========================================================= -->
+
+<div
+    class="modal"
+    id="modal"
+>
+
+    <div class="modal-content">
+
+        <h2>✏️ Editar Dados</h2>
+
+        <label>Clube</label>
+
+        <input
+            type="text"
+            id="modalClube"
+            readonly
+        >
+
+        <label>NIF (Contribuinte)</label>
+
+        <input
+            type="text"
+            id="modalNIF"
+        >
+
+        <label>IBAN / Conta Bancária</label>
+
+        <input
+            type="text"
+            id="modalIBAN"
+        >
+
+        <label>Valor (€)</label>
+
+        <input
+            type="number"
+            id="modalValor"
+            step="0.01"
+            min="0"
+        >
+
+        <label>Contacto</label>
+
+        <input
+            type="text"
+            id="modalContacto"
+        >
+
+        <label>Observações</label>
+
+        <input
+            type="text"
+            id="modalObs"
+        >
+
+        <div class="modal-buttons">
+
+            <button
+                class="btn-secondary"
+                onclick="fecharModal()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="guardarEdicao()"
+            >
+                💾 Guardar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL NOVO CLUBE
+========================================================= -->
+
+<div
+    class="modal"
+    id="modalNovoClube"
+>
+
+    <div class="modal-content">
+
+        <h2>➕ Adicionar Novo Clube</h2>
+
+        <label>Selecionar Liga</label>
+
+        <select id="novoClubeLiga">
+
+            <option value="1 Liga">
+                1ª Liga
+            </option>
+
+            <option value="2 Liga">
+                2ª Liga
+            </option>
+
+            <option value="Liga 3">
+                Liga 3
+            </option>
+
+        </select>
+
+        <label>Nome do Clube *</label>
+
+        <input
+            type="text"
+            id="novoClubeName"
+            placeholder="Ex: Sporting CP"
+        >
+
+        <label>Conta Interna</label>
+
+        <input
+            type="text"
+            id="novoClubeConta"
+            placeholder="Ex: 123456"
+        >
+
+        <label>Função</label>
+
+        <input
+            type="text"
+            id="novoClubeFuncao"
+            value="MA"
+        >
+
+        <label>NIF (Contribuinte)</label>
+
+        <input
+            type="text"
+            id="novoClubeNIF"
+            placeholder="Ex: 500000000"
+        >
+
+        <label>IBAN / Conta Bancária</label>
+
+        <input
+            type="text"
+            id="novoClubeIBAN"
+            placeholder="PT50..."
+        >
+
+        <label>Valor (€)</label>
+
+        <input
+            type="number"
+            id="novoClubeValor"
+            step="0.01"
+            min="0"
+            placeholder="0,00"
+        >
+
+        <label>Contacto</label>
+
+        <input
+            type="text"
+            id="novoClubeContacto"
+            placeholder="Email ou telefone"
+        >
+
+        <label>Observações</label>
+
+        <input
+            type="text"
+            id="novoClubeObs"
+            placeholder="Notas adicionais"
+        >
+
+        <div class="modal-buttons">
+
+            <button
+                class="btn-secondary"
+                onclick="fecharModalNovoClube()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="guardarNovoClube()"
+            >
+                ➕ Adicionar Clube
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL DUPLICAR
+========================================================= -->
+
+<div
+    class="modal"
+    id="modalDuplicarClube"
+>
+
+    <div class="modal-content">
+
+        <h2>👯 Duplicar Clube</h2>
+
+        <p style="color:#666;font-size:14px;margin-bottom:15px;">
+            Os dados foram copiados do clube original.
+            Altere o que for necessário.
+        </p>
+
+        <label>Nome do Clube (novo) *</label>
+
+        <input
+            type="text"
+            id="duplicarClubeName"
+        >
+
+        <label>Conta Interna</label>
+
+        <input
+            type="text"
+            id="duplicarClubeConta"
+        >
+
+        <label>NIF (Contribuinte)</label>
+
+        <input
+            type="text"
+            id="duplicarClubeNIF"
+        >
+
+        <label>IBAN / Conta Bancária</label>
+
+        <input
+            type="text"
+            id="duplicarClubeIBAN"
+        >
+
+        <label>Valor (€)</label>
+
+        <input
+            type="number"
+            id="duplicarClubeValor"
+            step="0.01"
+            min="0"
+        >
+
+        <label>Contacto</label>
+
+        <input
+            type="text"
+            id="duplicarClubeContacto"
+        >
+
+        <label>Observações</label>
+
+        <input
+            type="text"
+            id="duplicarClubeObs"
+        >
+
+        <div class="modal-buttons">
+
+            <button
+                class="btn-secondary"
+                onclick="fecharModalDuplicarClube()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                class="btn-primary"
+                onclick="guardarDuplicacao()"
+            >
+                👯 Duplicar Clube
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- IMPORT JSON -->
+
+<input
+    type="file"
+    id="importFile"
+    accept=".json,application/json"
+    style="display:none"
+>
+
+
+<!-- =========================================================
+     XLSX
+========================================================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURAÇÃO
+========================================================= */
+
+const STORAGE_KEY = 'futebolDados';
+
+let ligaSelecionada = '1 Liga';
+let filtroAtivo = '';
+let dados = {};
+let edicaoAtiva = null;
+let clubeDuplicacao = null;
+
+
+/* =========================================================
+   DADOS INICIAIS
+========================================================= */
+
+const dadosLigas = {
+
+    '1 Liga': [
+
+        {
+            CLUBES: 'BENFICA',
+            CONTA: '5649',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FC PORTO',
+            CONTA: '91747',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: 'DEL. PORTO TRATA',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'SPORTING',
+            CONTA: '422775',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'BRAGA',
+            CONTA: '93667',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FAMALICÃO',
+            CONTA: '95253',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'GIL VICENTE',
+            CONTA: '254401',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'financeiro@gilvicentefc.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'RIO AVE',
+            CONTA: '304209',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'V. GUIMARÃES',
+            CONTA: '95949',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'ESTORIL PRAIA',
+            CONTA: '90296',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'AROUCA',
+            CONTA: '92210',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FC Alverca',
+            CONTA: '402088',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'bernardomota.alverca@gmail.com',
+            pago: false
+        },
+
+        {
+            CLUBES: 'AROUCA SDUQ',
+            CONTA: '403728',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@fcarouca.pt',
+            pago: false
+        }
+
+    ],
+
+
+    '2 Liga': [
+
+        {
+            CLUBES: 'AC. VISEU',
+            CONTA: '246712',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@academicodeviseu.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'BENFICA B',
+            CONTA: '5649',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FEIRENSE',
+            CONTA: '92201',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'secretaria@cdfeirense.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FEIRENSE SAD',
+            CONTA: '96902',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'LEIXÕES',
+            CONTA: '94071',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@leixoessc.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'MAFRA',
+            CONTA: '95252',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'financeiro@cdmafra.com',
+            pago: false
+        },
+
+        {
+            CLUBES: 'PENAFIEL',
+            CONTA: '92209',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@fcpenafiel.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'PENAFIEL SAD',
+            CONTA: '400346',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@fcpenafiel.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FC PORTO B',
+            CONTA: '91747',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'DEL. PORTO',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FARENSE',
+            CONTA: '94061',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'secretaria@scfarense.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'MARÍTIMO',
+            CONTA: '92239',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@csmaritimo.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'PAÇOS FERREIRA',
+            CONTA: '91979',
+            FUNÇÃO: 'MA',
+            NIF: '',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'geral@fcpf.pt',
+            pago: false
+        }
+
+    ],
+
+
+    'Liga 3': [
+
+        {
+            CLUBES: 'VARZIM',
+            CONTA: '335883',
+            FUNÇÃO: 'MA',
+            NIF: '513610456',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'S. João Ver',
+            CONTA: '403149',
+            FUNÇÃO: 'MA',
+            NIF: '515471097',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'marketingecomunicacao@scsjversad.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'AD Sanjoanense',
+            CONTA: '304208',
+            FUNÇÃO: 'MA',
+            NIF: '514745827',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'futebolsad@ads.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'FAFE',
+            CONTA: '402976',
+            FUNÇÃO: 'MA',
+            NIF: '501659943',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'adfafe@adfafe.pt',
+            pago: false
+        },
+
+        {
+            CLUBES: 'BRAGA B',
+            CONTA: '93667',
+            FUNÇÃO: 'MA',
+            NIF: '504205498',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'TROFENSE',
+            CONTA: '94065',
+            FUNÇÃO: 'MA',
+            NIF: '510687628',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: '',
+            pago: false
+        },
+
+        {
+            CLUBES: 'Amarante FC',
+            CONTA: '309581',
+            FUNÇÃO: 'MA',
+            NIF: '502089415',
+            IBAN: '',
+            valor: 0,
+            OBS: '',
+            CONTACTO: 'amarantfclube@sapo.pt',
+            pago: false
+        }
+
+    ]
+
+};
+
+
+/* =========================================================
+   UTILITÁRIOS
+========================================================= */
+
+function clonarDados(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+
+function normalizarClube(clube) {
+
+    return {
+
+        CLUBES: clube.CLUBES || '',
+
+        CONTA: clube.CONTA || '',
+
+        FUNÇÃO: clube.FUNÇÃO || 'MA',
+
+        NIF: clube.NIF || '',
+
+        IBAN: clube.IBAN || '',
+
+        valor: Number(clube.valor) || 0,
+
+        OBS: clube.OBS || '',
+
+        CONTACTO: clube.CONTACTO || '',
+
+        pago: Boolean(clube.pago)
+
+    };
+}
+
+
+/* =========================================================
+   SISTEMA DE GRAVAÇÃO
+========================================================= */
+
+function marcarNaoGuardado() {
+
+    const dot = document.getElementById('saveDot');
+    const text = document.getElementById('saveStatusText');
+
+    if (!dot || !text) return;
+
+    dot.classList.add('unsaved');
+
+    text.textContent = 'A guardar...';
+}
+
+
+function atualizarEstadoGuardado() {
+
+    const dot = document.getElementById('saveDot');
+    const text = document.getElementById('saveStatusText');
+
+    if (!dot || !text) return;
+
+    dot.classList.remove('unsaved');
+
+    text.textContent =
+        'Guardado às ' +
+        new Date().toLocaleTimeString('pt-PT', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+}
+
+
+/*
+ * Esta é a função PRINCIPAL de gravação.
+ *
+ * É chamada depois de cada alteração.
+ */
+
+function salvarDadosSilencioso() {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(dados)
+        );
+
+        atualizarEstadoGuardado();
+
+        console.log(
+            '💾 Dados guardados:',
+            new Date().toLocaleString('pt-PT')
+        );
+
+        return true;
+
+    } catch (erro) {
+
+        console.error(
+            '❌ Erro ao guardar:',
+            erro
+        );
+
+        const mensagem =
+            erro && erro.name === 'QuotaExceededError'
+                ? '❌ O armazenamento do navegador está cheio.'
+                : '❌ Não foi possível guardar os dados.';
+
+        mostrarToast(mensagem);
+
+        return false;
+    }
+}
+
+
+/*
+ * Botão Guardar
+ */
+
+function guardarDados() {
+
+    marcarNaoGuardado();
+
+    const sucesso = salvarDadosSilencioso();
+
+    if (sucesso) {
+        mostrarToast('💾 Dados guardados com sucesso!');
+    }
+}
+
+
+/* =========================================================
+   CARREGAR DADOS
+========================================================= */
+
+function carregarDados() {
+
+    try {
+
+        const dadosGuardados =
+            localStorage.getItem(STORAGE_KEY);
+
+        /*
+         * Se existirem dados guardados,
+         * carregamos esses dados.
+         */
+
+        if (dadosGuardados) {
+
+            const dadosParseados =
+                JSON.parse(dadosGuardados);
+
+            dados = clonarDados(dadosLigas);
+
+            Object.keys(dadosParseados).forEach(liga => {
+
+                if (
+                    Array.isArray(
+                        dadosParseados[liga]
+                    )
+                ) {
+
+                    dados[liga] =
+                        dadosParseados[liga]
+                            .map(normalizarClube);
+                }
+
+            });
+
+            /*
+             * Se entretanto for criada uma nova liga
+             * no código, ela também fica disponível.
+             */
+
+            Object.keys(dadosLigas).forEach(liga => {
+
+                if (!dados[liga]) {
+
+                    dados[liga] =
+                        clonarDados(
+                            dadosLigas[liga]
+                        );
+
+                }
+
+            });
+
+            console.log(
+                '✅ Dados carregados do localStorage.'
+            );
+
+            atualizarEstadoGuardado();
+
+            return;
+        }
+
+
+        /*
+         * Não existem dados guardados.
+         * Criamos os dados iniciais.
+         */
+
+        dados = clonarDados(dadosLigas);
+
+        salvarDadosSilencioso();
+
+        console.log(
+            'ℹ️ Dados iniciais carregados.'
+        );
+
+    } catch (erro) {
+
+        console.error(
+            '❌ Erro ao carregar dados:',
+            erro
+        );
+
+        dados = clonarDados(dadosLigas);
+
+        mostrarToast(
+            '⚠️ Os dados guardados estavam inválidos. Foram carregados os dados iniciais.'
+        );
+    }
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function calcularTotalizacoes() {
+
+    const totalizacoes = {};
+
+    Object.keys(dados).forEach(liga => {
+
+        const clubes = dados[liga] || [];
+
+        const pagos =
+            clubes.filter(clube => clube.pago);
+
+        const naoPagos =
+            clubes.filter(clube => !clube.pago);
+
+        totalizacoes[liga] = {
+
+            total: clubes.length,
+
+            pagos: pagos.length,
+
+            naoPagos: naoPagos.length,
+
+            valorTotal:
+                clubes.reduce(
+                    (sum, clube) =>
+                        sum + (Number(clube.valor) || 0),
+                    0
+                ),
+
+            valorPago:
+                pagos.reduce(
+                    (sum, clube) =>
+                        sum + (Number(clube.valor) || 0),
+                    0
+                ),
+
+            valorPendente:
+                naoPagos.reduce(
+                    (sum, clube) =>
+                        sum + (Number(clube.valor) || 0),
+                    0
+                )
+
         };
 
-        let ligaSelecionada = '1 Liga';
-        let filtroAtivo = '';
-        let dados = {};
-        let edicaoAtiva = null;
+    });
 
-        // Calcular totalizações
-        function calcularTotalizacoes() {
-            const totalizacoes = {};
-            
-            Object.keys(dados).forEach(liga => {
-                const clubes = dados[liga];
-                const pagos = clubes.filter(c => c.pago);
-                const naoPagos = clubes.filter(c => !c.pago);
-                
-                totalizacoes[liga] = {
-                    total: clubes.length,
-                    pagos: pagos.length,
-                    naoPagos: naoPagos.length,
-                    valorTotal: clubes.reduce((sum, c) => sum + (c.valor || 0), 0),
-                    valorPago: pagos.reduce((sum, c) => sum + (c.valor || 0), 0),
-                    valorPendente: naoPagos.reduce((sum, c) => sum + (c.valor || 0), 0),
-                    percentagemPagamento: clubes.length > 0 ? Math.round((pagos.length / clubes.length) * 100) : 0
-                };
-            });
-            
-            return totalizacoes;
-        }
+    return totalizacoes;
+}
 
-        // Renderizar dashboard
-        function renderizarDashboard() {
-            const totalizacoes = calcularTotalizacoes();
-            let totalGeral = 0, pagosGeral = 0, pendentesGeral = 0, valorTotalGeral = 0;
-            
-            Object.values(totalizacoes).forEach(t => {
-                totalGeral += t.total;
-                pagosGeral += t.pagos;
-                pendentesGeral += t.naoPagos;
-                valorTotalGeral += t.valorTotal;
-            });
 
-            let html = `
-                <div class="dashboard-title">📊 Resumo Geral</div>
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <div class="card-label">Total de Clubes</div>
-                        <div class="card-value">${totalGeral}</div>
-                    </div>
-                    <div class="card success">
-                        <div class="card-label">Clubes Pagos</div>
-                        <div class="card-value">${pagosGeral}</div>
-                        <div class="card-subtext">${Math.round((pagosGeral/totalGeral)*100)}% de pagamento</div>
-                    </div>
-                    <div class="card alert">
-                        <div class="card-label">Clubes Não Pagos</div>
-                        <div class="card-value">${pendentesGeral}</div>
-                        <div class="card-subtext">${pendentesGeral} clubes em falta</div>
-                    </div>
-                    <div class="card">
-                        <div class="card-label">Valor Total Esperado</div>
-                        <div class="card-value">${valorTotalGeral.toFixed(2)}€</div>
-                    </div>
+function renderizarDashboard() {
+
+    const totalizacoes =
+        calcularTotalizacoes();
+
+    let totalGeral = 0;
+    let pagosGeral = 0;
+    let pendentesGeral = 0;
+    let valorTotalGeral = 0;
+    let valorPagoGeral = 0;
+    let valorPendenteGeral = 0;
+
+    Object.values(totalizacoes).forEach(t => {
+
+        totalGeral += t.total;
+
+        pagosGeral += t.pagos;
+
+        pendentesGeral += t.naoPagos;
+
+        valorTotalGeral += t.valorTotal;
+
+        valorPagoGeral += t.valorPago;
+
+        valorPendenteGeral += t.valorPendente;
+
+    });
+
+
+    const percentagem =
+        totalGeral > 0
+            ? Math.round(
+                (pagosGeral / totalGeral) * 100
+            )
+            : 0;
+
+
+    let html = `
+
+        <div class="dashboard-title">
+            📊 Resumo Geral
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="card">
+
+                <div class="card-label">
+                    Total de Clubes
                 </div>
 
-                <div class="ligas-resumo">
-                    <div class="dashboard-title">⚽ Resumo por Liga</div>
-            `;
+                <div class="card-value">
+                    ${totalGeral}
+                </div>
 
-            Object.entries(totalizacoes).forEach(([liga, t]) => {
-                html += `
-                    <div class="liga-card">
-                        <div class="liga-card-header">
-                            <span class="liga-name">${liga}</span>
-                            <span style="font-size: 13px; color: #999;">${t.pagos}/${t.total} clubes pagos</span>
-                        </div>
-                        <div class="liga-stats">
-                            <div class="liga-stat">
-                                <span class="liga-stat-label">Total de Clubes</span>
-                                <span class="liga-stat-value">${t.total}</span>
-                            </div>
-                            <div class="liga-stat success">
-                                <span class="liga-stat-label">✓ Pagos</span>
-                                <span class="liga-stat-value">${t.pagos}</span>
-                            </div>
-                            <div class="liga-stat ${t.naoPagos > 0 ? 'alert' : ''}">
-                                <span class="liga-stat-label">✗ Não Pagos</span>
-                                <span class="liga-stat-value">${t.naoPagos}</span>
-                            </div>
-                            <div class="liga-stat">
-                                <span class="liga-stat-label">Valor Total</span>
-                                <span class="liga-stat-value">${t.valorTotal.toFixed(2)}€</span>
-                            </div>
-                            <div class="liga-stat">
-                                <span class="liga-stat-label">Valor Pago</span>
-                                <span class="liga-stat-value">${t.valorPago.toFixed(2)}€</span>
-                            </div>
-                            <div class="liga-stat ${t.valorPendente > 0 ? 'alert' : ''}">
-                                <span class="liga-stat-label">Valor Pendente</span>
-                                <span class="liga-stat-value">${t.valorPendente.toFixed(2)}€</span>
-                            </div>
-                        </div>
+            </div>
+
+
+            <div class="card success">
+
+                <div class="card-label">
+                    Clubes Pagos
+                </div>
+
+                <div class="card-value">
+                    ${pagosGeral}
+                </div>
+
+                <div class="card-subtext">
+                    ${percentagem}% de pagamento
+                </div>
+
+            </div>
+
+
+            <div class="card alert">
+
+                <div class="card-label">
+                    Clubes Não Pagos
+                </div>
+
+                <div class="card-value">
+                    ${pendentesGeral}
+                </div>
+
+                <div class="card-subtext">
+                    ${pendentesGeral} clubes em falta
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-label">
+                    Valor Total
+                </div>
+
+                <div class="card-value">
+                    ${valorTotalGeral.toFixed(2)}€
+                </div>
+
+                <div class="card-subtext">
+                    Valor previsto
+                </div>
+
+            </div>
+
+
+            <div class="card success">
+
+                <div class="card-label">
+                    Valor Pago
+                </div>
+
+                <div class="card-value">
+                    ${valorPagoGeral.toFixed(2)}€
+                </div>
+
+            </div>
+
+
+            <div class="card alert">
+
+                <div class="card-label">
+                    Valor Pendente
+                </div>
+
+                <div class="card-value">
+                    ${valorPendenteGeral.toFixed(2)}€
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="ligas-resumo">
+
+            <div class="dashboard-title">
+                ⚽ Resumo por Liga
+            </div>
+
+    `;
+
+
+    Object.entries(totalizacoes).forEach(
+        ([liga, t]) => {
+
+            html += `
+
+                <div class="liga-card">
+
+                    <div class="liga-card-header">
+
+                        <span class="liga-name">
+                            ${liga}
+                        </span>
+
+                        <span style="font-size:13px;color:#999;">
+                            ${t.pagos}/${t.total}
+                            clubes pagos
+                        </span>
+
                     </div>
-                `;
-            });
 
-            html += `</div>`;
-            document.getElementById('dashboard').innerHTML = html;
-        }
 
-        function inicializar() {
-            // Carregar dados do localStorage
-            carregarDados();
-            
-            // Renderizar abas
-            const tabsContainer = document.getElementById('tabsContainer');
-            Object.keys(dadosLigas).forEach((liga, index) => {
-                const tab = document.createElement('button');
-                tab.className = 'tab' + (index === 0 ? ' active' : '');
-                tab.textContent = liga;
-                tab.onclick = () => mudarLiga(liga);
-                tabsContainer.appendChild(tab);
-            });
+                    <div class="liga-stats">
 
-            // Renderizar conteúdo inicial
-            renderizarDashboard();
-            renderizarTabela();
-            atualizarStats();
-        }
+                        <div class="liga-stat">
 
-        function carregarDados() {
-            const saved = localStorage.getItem('futebolDados');
-            if (saved) {
-                dados = JSON.parse(saved);
-                // Mesclar com dados iniciais (para adicionar novos clubes se houver)
-                Object.keys(dadosLigas).forEach(liga => {
-                    if (!dados[liga]) {
-                        dados[liga] = dadosLigas[liga];
-                    } else {
-                        // Garantir que todos os campos existem
-                        dados[liga].forEach(clube => {
-                            if (!clube.NIF) clube.NIF = '';
-                            if (!clube.IBAN) clube.IBAN = '';
-                            if (clube.valor === undefined) clube.valor = 0;
-                            if (!clube.pago) clube.pago = false;
-                        });
-                    }
-                });
-            } else {
-                dados = JSON.parse(JSON.stringify(dadosLigas));
-            }
-        }
+                            <span class="liga-stat-label">
+                                Total de Clubes
+                            </span>
 
-        function mudarLiga(liga) {
-            ligaSelecionada = liga;
-            
-            // Atualizar abas ativas
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Renderizar tabela e dashboard
-            renderizarDashboard();
-            renderizarTabela();
-            atualizarStats();
-        }
+                            <span class="liga-stat-value">
+                                ${t.total}
+                            </span>
 
-        function renderizarTabela() {
-            const clubes = dados[ligaSelecionada] || [];
-            const filtrados = filtroAtivo 
-                ? clubes.filter(c => c.CLUBES.toLowerCase().includes(filtroAtivo.toLowerCase()))
-                : clubes;
+                        </div>
 
-            let html = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>✓ Pago</th>
-                            <th>Clube</th>
-                            <th>Conta</th>
-                            <th>NIF</th>
-                            <th>IBAN</th>
-                            <th>Valor (€)</th>
-                            <th>Contacto</th>
-                            <th>Obs</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+                        <div class="liga-stat">
+
+                            <span class="liga-stat-label">
+                                ✓ Pagos
+                            </span>
+
+                            <span class="liga-stat-value">
+                                ${t.pagos}
+                            </span>
+
+                        </div>
+
+
+                        <div class="liga-stat ${
+                            t.naoPagos > 0
+                                ? 'alert'
+                                : ''
+                        }">
+
+                            <span class="liga-stat-label">
+                                ✗ Não Pagos
+                            </span>
+
+                            <span class="liga-stat-value">
+                                ${t.naoPagos}
+                            </span>
+
+                        </div>
+
+
+                        <div class="liga-stat">
+
+                            <span class="liga-stat-label">
+                                Valor Total
+                            </span>
+
+                            <span class="liga-stat-value">
+                                ${t.valorTotal.toFixed(2)}€
+                            </span>
+
+                        </div>
+
+
+                        <div class="liga-stat">
+
+                            <span class="liga-stat-label">
+                                Valor Pago
+                            </span>
+
+                            <span class="liga-stat-value">
+                                ${t.valorPago.toFixed(2)}€
+                            </span>
+
+                        </div>
+
+
+                        <div class="liga-stat ${
+                            t.valorPendente > 0
+                                ? 'alert'
+                                : ''
+                        }">
+
+                            <span class="liga-stat-label">
+                                Valor Pendente
+                            </span>
+
+                            <span class="liga-stat-value">
+                                ${t.valorPendente.toFixed(2)}€
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             `;
+        }
+    );
 
-            if (filtrados.length === 0) {
-                html += `<tr><td colspan="9" class="no-data"><p>Nenhum clube encontrado</p></td></tr>`;
-            } else {
-                filtrados.forEach((clube, index) => {
-                    const statusBadge = clube.pago 
-                        ? '<span class="status-badge status-pago">Pago</span>'
-                        : '<span class="status-badge status-nao-pago">Não Pago</span>';
-                    
-                    html += `
-                        <tr>
-                            <td class="status-pagamento">
-                                <input type="checkbox" ${clube.pago ? 'checked' : ''} 
-                                       onchange="togglePagamento('${ligaSelecionada}', ${clubes.indexOf(clube)})">
-                            </td>
-                            <td class="clube-name">${clube.CLUBES}</td>
-                            <td>${clube.CONTA || '-'}</td>
-                            <td><strong>${clube.NIF || '-'}</strong></td>
-                            <td><small>${clube.IBAN || '-'}</small></td>
-                            <td>${clube.valor > 0 ? clube.valor.toFixed(2) + '€' : '-'}</td>
-                            <td><small>${clube.CONTACTO || '-'}</small></td>
-                            <td><small>${clube.OBS || '-'}</small></td>
-                            <td>
-                                <button class="btn-secondary" onclick="abrirModal('${ligaSelecionada}', ${clubes.indexOf(clube)})">
-                                    ✏️ Editar
-                                </button>
-                                <button class="btn-info" onclick="duplicarClube('${ligaSelecionada}', ${clubes.indexOf(clube)})">
-                                    👯 Duplicar
-                                </button>
-                                <button class="btn-danger" onclick="removerClube('${ligaSelecionada}', ${clubes.indexOf(clube)})">
-                                    🗑️
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                });
+
+    html += `</div>`;
+
+    document.getElementById(
+        'dashboard'
+    ).innerHTML = html;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+function criarTabs() {
+
+    const tabsContainer =
+        document.getElementById(
+            'tabsContainer'
+        );
+
+    tabsContainer.innerHTML = '';
+
+    Object.keys(dadosLigas).forEach(
+        liga => {
+
+            const tab =
+                document.createElement('button');
+
+            tab.className =
+                'tab' +
+                (
+                    liga === ligaSelecionada
+                        ? ' active'
+                        : ''
+                );
+
+            tab.textContent = liga;
+
+            tab.addEventListener(
+                'click',
+                () => mudarLiga(liga)
+            );
+
+            tabsContainer.appendChild(tab);
+
+        }
+    );
+}
+
+
+function mudarLiga(liga) {
+
+    ligaSelecionada = liga;
+
+    document
+        .querySelectorAll('.tab')
+        .forEach(tab => {
+
+            tab.classList.remove('active');
+
+            if (
+                tab.textContent === liga
+            ) {
+
+                tab.classList.add('active');
+
             }
 
-            html += `</tbody></table>`;
-            document.getElementById('tabContent').innerHTML = html;
-        }
-
-        function togglePagamento(liga, index) {
-            dados[liga][index].pago = !dados[liga][index].pago;
-            renderizarDashboard();
-            renderizarTabela();
-            atualizarStats();
-            guardarDados();
-            mostrarToast('Status atualizado');
-        }
-
-        function abrirModal(liga, index) {
-            edicaoAtiva = { liga, index };
-            const clube = dados[liga][index];
-            
-            document.getElementById('modalClube').value = clube.CLUBES;
-            document.getElementById('modalNIF').value = clube.NIF || '';
-            document.getElementById('modalIBAN').value = clube.IBAN || '';
-            document.getElementById('modalValor').value = clube.valor || '';
-            document.getElementById('modalObs').value = clube.OBS || '';
-            
-            document.getElementById('modal').classList.add('active');
-        }
-
-        function fecharModal() {
-            document.getElementById('modal').classList.remove('active');
-            edicaoAtiva = null;
-        }
-
-        function abrirModalNovoClube() {
-            document.getElementById('modalNovoClube').classList.add('active');
-            // Limpar campos
-            document.getElementById('novoClubeName').value = '';
-            document.getElementById('novoClubeConta').value = '';
-            document.getElementById('novoClubeFuncao').value = 'MA';
-            document.getElementById('novoClibeNIF').value = '';
-            document.getElementById('novoClibeIBAN').value = '';
-            document.getElementById('novoClibeValor').value = '';
-            document.getElementById('novoClibeContacto').value = '';
-            document.getElementById('novoClibeObs').value = '';
-            document.getElementById('novoClubeLiga').value = ligaSelecionada;
-        }
-
-        function fecharModalNovoClube() {
-            document.getElementById('modalNovoClube').classList.remove('active');
-        }
-
-        function guardarNovoClube() {
-            const nome = document.getElementById('novoClubeName').value.trim();
-            if (!nome) {
-                mostrarToast('❌ Nome do clube é obrigatório');
-                return;
-            }
-
-            const liga = document.getElementById('novoClubeLiga').value;
-            const novoClube = {
-                CLUBES: nome,
-                CONTA: document.getElementById('novoClubeConta').value || '',
-                FUNÇÃO: document.getElementById('novoClubeFuncao').value || 'MA',
-                NIF: document.getElementById('novoClibeNIF').value || '',
-                IBAN: document.getElementById('novoClibeIBAN').value || '',
-                valor: parseFloat(document.getElementById('novoClibeValor').value) || 0,
-                CONTACTO: document.getElementById('novoClibeContacto').value || '',
-                OBS: document.getElementById('novoClibeObs').value || '',
-                pago: false
-            };
-
-            dados[liga].push(novoClube);
-            renderizarDashboard();
-            renderizarTabela();
-            atualizarStats();
-            guardarDados();
-            fecharModalNovoClube();
-            mostrarToast(`✅ Clube "${nome}" adicionado à ${liga}`);
-        }
-
-        function removerClube(liga, index) {
-            const clube = dados[liga][index];
-            if (confirm(`Tem a certeza que quer remover "${clube.CLUBES}"?`)) {
-                dados[liga].splice(index, 1);
-                renderizarDashboard();
-                renderizarTabela();
-                atualizarStats();
-                guardarDados();
-                mostrarToast(`🗑️ Clube removido`);
-            }
-        }
-
-        function duplicarClube(liga, index) {
-            const clubeOriginal = dados[liga][index];
-            
-            // Preencher modal com dados do clube original
-            document.getElementById('duplicarClubeName').value = clubeOriginal.CLUBES + ' (2)';
-            document.getElementById('duplicarClubeConta').value = clubeOriginal.CONTA || '';
-            document.getElementById('duplicarClibeNIF').value = clubeOriginal.NIF || '';
-            document.getElementById('duplicarClibeIBAN').value = clubeOriginal.IBAN || '';
-            document.getElementById('duplicarClibeValor').value = clubeOriginal.valor || '';
-            document.getElementById('duplicarClibeContacto').value = clubeOriginal.CONTACTO || '';
-            document.getElementById('duplicarClibeObs').value = clubeOriginal.OBS || '';
-            
-            // Guardar referência do clube original
-            window.clubeDuplicacao = {
-                liga: liga,
-                index: index
-            };
-            
-            document.getElementById('modalDuplicarClube').classList.add('active');
-        }
-
-        function fecharModalDuplicarClube() {
-            document.getElementById('modalDuplicarClube').classList.remove('active');
-            window.clubeDuplicacao = null;
-        }
-
-        function guardarDuplicacao() {
-            if (!window.clubeDuplicacao) return;
-            
-            const nome = document.getElementById('duplicarClubeName').value.trim();
-            if (!nome) {
-                mostrarToast('❌ Nome do clube é obrigatório');
-                return;
-            }
-
-            const { liga, index } = window.clubeDuplicacao;
-            const clubeOriginal = dados[liga][index];
-            
-            const novoClube = {
-                CLUBES: nome,
-                CONTA: document.getElementById('duplicarClubeConta').value || clubeOriginal.CONTA || '',
-                FUNÇÃO: clubeOriginal.FUNÇÃO || 'MA',
-                NIF: document.getElementById('duplicarClibeNIF').value || '',
-                IBAN: document.getElementById('duplicarClibeIBAN').value || '',
-                valor: parseFloat(document.getElementById('duplicarClibeValor').value) || 0,
-                CONTACTO: document.getElementById('duplicarClibeContacto').value || '',
-                OBS: document.getElementById('duplicarClibeObs').value || '',
-                pago: false
-            };
-
-            dados[liga].push(novoClube);
-            renderizarDashboard();
-            renderizarTabela();
-            atualizarStats();
-            guardarDados();
-            fecharModalDuplicarClube();
-            mostrarToast(`👯 Clube "${nome}" duplicado com sucesso`);
-        }
-
-        function guardarEdicao() {
-            if (!edicaoAtiva) return;
-            
-            const { liga, index } = edicaoAtiva;
-            const clube = dados[liga][index];
-            
-            clube.NIF = document.getElementById('modalNIF').value;
-            clube.IBAN = document.getElementById('modalIBAN').value;
-            clube.valor = parseFloat(document.getElementById('modalValor').value) || 0;
-            clube.OBS = document.getElementById('modalObs').value;
-            
-            renderizarDashboard();
-            renderizarTabela();
-            atualizarStats();
-            guardarDados();
-            fecharModal();
-            mostrarToast('Dados atualizados com sucesso');
-        }
-
-        function guardarDados() {
-            localStorage.setItem('futebolDados', JSON.stringify(dados));
-            mostrarToast('Dados guardados com sucesso!');
-        }
-
-        function exportarExcel() {
-            const totalizacoes = calcularTotalizacoes();
-            const workbook = XLSX.utils.book_new();
-
-            // Aba 1: Resumo Geral
-            const resumoData = [];
-            resumoData.push(['RESUMO GERAL - ' + new Date().toLocaleDateString('pt-PT')]);
-            resumoData.push([]);
-            resumoData.push(['Métrica', 'Valor']);
-            
-            let totalGeral = 0, pagosGeral = 0, pendentesGeral = 0, valorTotalGeral = 0;
-            Object.values(totalizacoes).forEach(t => {
-                totalGeral += t.total;
-                pagosGeral += t.pagos;
-                pendentesGeral += t.naoPagos;
-                valorTotalGeral += t.valorTotal;
-            });
-
-            resumoData.push(['Total de Clubes', totalGeral]);
-            resumoData.push(['Clubes Pagos', pagosGeral]);
-            resumoData.push(['Clubes Não Pagos', pendentesGeral]);
-            resumoData.push(['% de Pagamento', Math.round((pagosGeral/totalGeral)*100) + '%']);
-            resumoData.push(['Valor Total Esperado', valorTotalGeral]);
-            resumoData.push([]);
-            resumoData.push(['Por Liga', '', 'Total', 'Pagos', 'Não Pagos', 'Valor Total', 'Valor Pago', 'Valor Pendente']);
-
-            Object.entries(totalizacoes).forEach(([liga, t]) => {
-                resumoData.push([liga, '', t.total, t.pagos, t.naoPagos, t.valorTotal.toFixed(2), t.valorPago.toFixed(2), t.valorPendente.toFixed(2)]);
-            });
-
-            const resumoSheet = XLSX.utils.aoa_to_sheet(resumoData);
-            resumoSheet.colWidths = [25, 15, 12, 12, 15, 18, 15, 18];
-            XLSX.utils.book_append_sheet(workbook, resumoSheet, 'Resumo');
-
-            // Abas para cada liga
-            Object.entries(dados).forEach(([liga, clubes]) => {
-                const sheetData = [
-                    [liga.toUpperCase()],
-                    [],
-                    ['Clube', 'Conta', 'NIF', 'IBAN', 'Pago?', 'Valor (€)', 'Contacto', 'Observações']
-                ];
-
-                clubes.forEach(clube => {
-                    sheetData.push([
-                        clube.CLUBES,
-                        clube.CONTA || '',
-                        clube.NIF || '',
-                        clube.IBAN || '',
-                        clube.pago ? 'Sim' : 'Não',
-                        clube.valor || '',
-                        clube.CONTACTO || '',
-                        clube.OBS || ''
-                    ]);
-                });
-
-                // Adicionar totais
-                const totalValor = clubes.reduce((sum, c) => sum + (c.valor || 0), 0);
-                const totalPagos = clubes.filter(c => c.pago).length;
-                sheetData.push([]);
-                sheetData.push(['TOTAL', '', '', '', `${totalPagos}/${clubes.length}`, totalValor.toFixed(2)]);
-
-                const sheet = XLSX.utils.aoa_to_sheet(sheetData);
-                sheet.colWidths = [20, 12, 15, 20, 12, 12, 25, 30];
-                
-                // Formatar cabeçalho
-                const headerStyle = {
-                    font: { bold: true, color: { rgb: 'FFFFFF' } },
-                    fill: { fgColor: { rgb: '0F4C3A' } },
-                    alignment: { horizontal: 'center', vertical: 'center' }
-                };
-
-                for (let i = 0; i < 8; i++) {
-                    const cellRef = XLSX.utils.encode_col(i) + '3';
-                    sheet[cellRef].s = headerStyle;
-                }
-
-                XLSX.utils.book_append_sheet(workbook, sheet, liga);
-            });
-
-            // Guardar ficheiro
-            const filename = `Clubes_Futebol_${new Date().toISOString().split('T')[0]}.xlsx`;
-            XLSX.writeFile(workbook, filename);
-            mostrarToast('Excel exportado com sucesso!');
-        }
-
-        function exportarDados() {
-            const json = JSON.stringify(dados, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `clubes_futebol_${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            mostrarToast('JSON exportado');
-        }
-
-        function limparDados() {
-            if (confirm('Tem a certeza que quer limpar todos os dados? Esta ação não pode ser desfeita.')) {
-                localStorage.removeItem('futebolDados');
-                dados = JSON.parse(JSON.stringify(dadosLigas));
-                guardarDados();
-                renderizarDashboard();
-                renderizarTabela();
-                atualizarStats();
-                mostrarToast('Dados limpos');
-            }
-        }
-
-        function atualizarStats() {
-            const clubesAtivos = dados[ligaSelecionada] || [];
-            const pagos = clubesAtivos.filter(c => c.pago).length;
-            const naoPagos = clubesAtivos.filter(c => !c.pago).length;
-            
-            document.getElementById('totalClubes').textContent = clubesAtivos.length;
-            document.getElementById('paidCount').textContent = pagos;
-            document.getElementById('unpaidCount').textContent = naoPagos;
-        }
-
-        function mostrarToast(mensagem) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = mensagem;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
-
-        // Busca
-        document.addEventListener('DOMContentLoaded', () => {
-            inicializar();
-            
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                filtroAtivo = e.target.value;
-                renderizarTabela();
-            });
-
-            // Fechar modal ao clicar fora
-            document.getElementById('modal').addEventListener('click', (e) => {
-                if (e.target.id === 'modal') {
-                    fecharModal();
-                }
-            });
-
-            document.getElementById('modalNovoClube').addEventListener('click', (e) => {
-                if (e.target.id === 'modalNovoClube') {
-                    fecharModalNovoClube();
-                }
-            });
-
-            document.getElementById('modalDuplicarClube').addEventListener('click', (e) => {
-                if (e.target.id === 'modalDuplicarClube') {
-                    fecharModalDuplicarClube();
-                }
-            });
         });
 
-        // Guardar dados periodicamente
-        setInterval(guardarDados, 30000);
-    </script>
+    renderizarTabela();
+
+    atualizarStats();
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+function renderizarTabela() {
+
+    const clubes =
+        dados[ligaSelecionada] || [];
+
+    const termo =
+        filtroAtivo
+            .trim()
+            .toLowerCase();
+
+
+    const filtrados =
+        termo
+            ? clubes.filter(clube =>
+                String(clube.CLUBES || '')
+                    .toLowerCase()
+                    .includes(termo)
+            )
+            : clubes;
+
+
+    let html = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ✓ Pago
+                    </th>
+
+                    <th>
+                        Clube
+                    </th>
+
+                    <th>
+                        Conta
+                    </th>
+
+                    <th>
+                        NIF
+                    </th>
+
+                    <th>
+                        IBAN
+                    </th>
+
+                    <th>
+                        Valor (€)
+                    </th>
+
+                    <th>
+                        Contacto
+                    </th>
+
+                    <th>
+                        Obs
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    if (filtrados.length === 0) {
+
+        html += `
+
+            <tr>
+
+                <td
+                    colspan="9"
+                    class="no-data"
+                >
+
+                    <p>
+                        🔎 Nenhum clube encontrado.
+                    </p>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    } else {
+
+        filtrados.forEach(clube => {
+
+            const index =
+                clubes.indexOf(clube);
+
+
+            const statusBadge =
+                clube.pago
+
+                    ? `
+                        <span class="status-badge status-pago">
+                            Pago
+                        </span>
+                    `
+
+                    : `
+                        <span class="status-badge status-nao-pago">
+                            Não Pago
+                        </span>
+                    `;
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+
+                        <div class="status-pagamento">
+
+                            <input
+                                type="checkbox"
+                                ${
+                                    clube.pago
+                                        ? 'checked'
+                                        : ''
+                                }
+                                onchange="
+                                    togglePagamento(
+                                        '${escapeHtmlAttribute(ligaSelecionada)}',
+                                        ${index}
+                                    )
+                                "
+                            >
+
+                            ${statusBadge}
+
+                        </div>
+
+                    </td>
+
+
+                    <td class="clube-name">
+                        ${escapeHtml(clube.CLUBES)}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(clube.CONTA || '-')}
+                    </td>
+
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(clube.NIF || '-')}
+                        </strong>
+                    </td>
+
+
+                    <td>
+                        <small>
+                            ${escapeHtml(clube.IBAN || '-')}
+                        </small>
+                    </td>
+
+
+                    <td>
+                        ${
+                            Number(clube.valor) > 0
+                                ? Number(clube.valor)
+                                    .toFixed(2) + '€'
+                                : '-'
+                        }
+                    </td>
+
+
+                    <td>
+                        <small>
+                            ${escapeHtml(clube.CONTACTO || '-')}
+                        </small>
+                    </td>
+
+
+                    <td>
+                        <small>
+                            ${escapeHtml(clube.OBS || '-')}
+                        </small>
+                    </td>
+
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="btn-secondary"
+                                onclick="
+                                    abrirModal(
+                                        '${escapeHtmlAttribute(ligaSelecionada)}',
+                                        ${index}
+                                    )
+                                "
+                            >
+                                ✏️ Editar
+                            </button>
+
+
+                            <button
+                                class="btn-info"
+                                onclick="
+                                    duplicarClube(
+                                        '${escapeHtmlAttribute(ligaSelecionada)}',
+                                        ${index}
+                                    )
+                                "
+                            >
+                                👯 Duplicar
+                            </button>
+
+
+                            <button
+                                class="btn-danger"
+                                onclick="
+                                    removerClube(
+                                        '${escapeHtmlAttribute(ligaSelecionada)}',
+                                        ${index}
+                                    )
+                                "
+                            >
+                                🗑️
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    }
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+    `;
+
+
+    document.getElementById(
+        'tabContent'
+    ).innerHTML = html;
+}
+
+
+/* =========================================================
+   PAGAMENTOS
+========================================================= */
+
+function togglePagamento(liga, index) {
+
+    if (
+        !dados[liga] ||
+        !dados[liga][index]
+    ) {
+        return;
+    }
+
+
+    dados[liga][index].pago =
+        !dados[liga][index].pago;
+
+
+    salvarDadosSilencioso();
+
+    renderizarDashboard();
+
+    renderizarTabela();
+
+    atualizarStats();
+
+
+    mostrarToast(
+
+        dados[liga][index].pago
+
+            ? '✅ Pagamento marcado como pago.'
+
+            : '⚠️ Pagamento marcado como não pago.'
+
+    );
+}
+
+
+/* =========================================================
+   EDITAR
+========================================================= */
+
+function abrirModal(liga, index) {
+
+    if (
+        !dados[liga] ||
+        !dados[liga][index]
+    ) {
+        return;
+    }
+
+
+    edicaoAtiva = {
+        liga,
+        index
+    };
+
+
+    const clube =
+        dados[liga][index];
+
+
+    document.getElementById(
+        'modalClube'
+    ).value =
+        clube.CLUBES || '';
+
+
+    document.getElementById(
+        'modalNIF'
+    ).value =
+        clube.NIF || '';
+
+
+    document.getElementById(
+        'modalIBAN'
+    ).value =
+        clube.IBAN || '';
+
+
+    document.getElementById(
+        'modalValor'
+    ).value =
+        clube.valor || '';
+
+
+    document.getElementById(
+        'modalContacto'
+    ).value =
+        clube.CONTACTO || '';
+
+
+    document.getElementById(
+        'modalObs'
+    ).value =
+        clube.OBS || '';
+
+
+    document
+        .getElementById('modal')
+        .classList.add('active');
+}
+
+
+function fecharModal() {
+
+    document
+        .getElementById('modal')
+        .classList.remove('active');
+
+    edicaoAtiva = null;
+}
+
+
+function guardarEdicao() {
+
+    if (!edicaoAtiva) {
+        return;
+    }
+
+
+    const {
+        liga,
+        index
+    } = edicaoAtiva;
+
+
+    const clube =
+        dados[liga][index];
+
+
+    clube.NIF =
+        document.getElementById(
+            'modalNIF'
+        ).value.trim();
+
+
+    clube.IBAN =
+        document.getElementById(
+            'modalIBAN'
+        ).value.trim();
+
+
+    clube.valor =
+        parseFloat(
+            document.getElementById(
+                'modalValor'
+            ).value
+        ) || 0;
+
+
+    clube.CONTACTO =
+        document.getElementById(
+            'modalContacto'
+        ).value.trim();
+
+
+    clube.OBS =
+        document.getElementById(
+            'modalObs'
+        ).value.trim();
+
+
+    salvarDadosSilencioso();
+
+    renderizarDashboard();
+
+    renderizarTabela();
+
+    atualizarStats();
+
+    fecharModal();
+
+    mostrarToast(
+        '✅ Dados atualizados com sucesso.'
+    );
+}
+
+
+/* =========================================================
+   NOVO CLUBE
+========================================================= */
+
+function abrirModalNovoClube() {
+
+    document.getElementById(
+        'novoClubeLiga'
+    ).value =
+        ligaSelecionada;
+
+
+    document.getElementById(
+        'novoClubeName'
+    ).value = '';
+
+
+    document.getElementById(
+        'novoClubeConta'
+    ).value = '';
+
+
+    document.getElementById(
+        'novoClubeFuncao'
+    ).value = 'MA';
+
+
+    document.getElementById(
+        'novoClubeNIF'
+    ).value = '';
+
+
+    document.getElementById(
+        'novoClubeIBAN'
+    ).value = '';
+
+
+    document.getElementById(
+        'novoClubeValor'
+    ).value = '';
+
+
+    document.getElementById(
+        'novoClubeContacto'
+    ).value = '';
+
+
+    document.getElementById(
+        'novoClubeObs'
+    ).value = '';
+
+
+    document
+        .getElementById(
+            'modalNovoClube'
+        )
+        .classList.add('active');
+
+
+    setTimeout(() => {
+
+        document.getElementById(
+            'novoClubeName'
+        ).focus();
+
+    }, 100);
+}
+
+
+function fecharModalNovoClube() {
+
+    document
+        .getElementById(
+            'modalNovoClube'
+        )
+        .classList.remove('active');
+}
+
+
+function guardarNovoClube() {
+
+    const nome =
+        document.getElementById(
+            'novoClubeName'
+        ).value.trim();
+
+
+    if (!nome) {
+
+        mostrarToast(
+            '❌ O nome do clube é obrigatório.'
+        );
+
+        return;
+    }
+
+
+    const liga =
+        document.getElementById(
+            'novoClubeLiga'
+        ).value;
+
+
+    if (!dados[liga]) {
+        dados[liga] = [];
+    }
+
+
+    const novoClube = {
+
+        CLUBES: nome,
+
+        CONTA:
+            document.getElementById(
+                'novoClubeConta'
+            ).value.trim(),
+
+        FUNÇÃO:
+            document.getElementById(
+                'novoClubeFuncao'
+            ).value.trim() || 'MA',
+
+        NIF:
+            document.getElementById(
+                'novoClubeNIF'
+            ).value.trim(),
+
+        IBAN:
+            document.getElementById(
+                'novoClubeIBAN'
+            ).value.trim(),
+
+        valor:
+            parseFloat(
+                document.getElementById(
+                    'novoClubeValor'
+                ).value
+            ) || 0,
+
+        CONTACTO:
+            document.getElementById(
+                'novoClubeContacto'
+            ).value.trim(),
+
+        OBS:
+            document.getElementById(
+                'novoClubeObs'
+            ).value.trim(),
+
+        pago: false
+
+    };
+
+
+    dados[liga].push(novoClube);
+
+
+    ligaSelecionada = liga;
+
+    criarTabs();
+
+    salvarDadosSilencioso();
+
+    renderizarDashboard();
+
+    renderizarTabela();
+
+    atualizarStats();
+
+    fecharModalNovoClube();
+
+
+    mostrarToast(
+        `✅ Clube "${nome}" adicionado à ${liga}.`
+    );
+}
+
+
+/* =========================================================
+   REMOVER
+========================================================= */
+
+function removerClube(liga, index) {
+
+    if (
+        !dados[liga] ||
+        !dados[liga][index]
+    ) {
+        return;
+    }
+
+
+    const clube =
+        dados[liga][index];
+
+
+    const confirmar =
+        confirm(
+            `Tem a certeza que quer remover "${clube.CLUBES}"?\n\nEsta ação não pode ser desfeita.`
+        );
+
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    dados[liga].splice(index, 1);
+
+
+    salvarDadosSilencioso();
+
+    renderizarDashboard();
+
+    renderizarTabela();
+
+    atualizarStats();
+
+
+    mostrarToast(
+        '🗑️ Clube removido com sucesso.'
+    );
+}
+
+
+/* =========================================================
+   DUPLICAR
+========================================================= */
+
+function duplicarClube(liga, index) {
+
+    if (
+        !dados[liga] ||
+        !dados[liga][index]
+    ) {
+        return;
+    }
+
+
+    const original =
+        dados[liga][index];
+
+
+    document.getElementById(
+        'duplicarClubeName'
+    ).value =
+        original.CLUBES + ' (2)';
+
+
+    document.getElementById(
+        'duplicarClubeConta'
+    ).value =
+        original.CONTA || '';
+
+
+    document.getElementById(
+        'duplicarClubeNIF'
+    ).value =
+        original.NIF || '';
+
+
+    document.getElementById(
+        'duplicarClubeIBAN'
+    ).value =
+        original.IBAN || '';
+
+
+    document.getElementById(
+        'duplicarClubeValor'
+    ).value =
+        original.valor || '';
+
+
+    document.getElementById(
+        'duplicarClubeContacto'
+    ).value =
+        original.CONTACTO || '';
+
+
+    document.getElementById(
+        'duplicarClubeObs'
+    ).value =
+        original.OBS || '';
+
+
+    clubeDuplicacao = {
+        liga,
+        index
+    };
+
+
+    document
+        .getElementById(
+            'modalDuplicarClube'
+        )
+        .classList.add('active');
+}
+
+
+function fecharModalDuplicarClube() {
+
+    document
+        .getElementById(
+            'modalDuplicarClube'
+        )
+        .classList.remove('active');
+
+    clubeDuplicacao = null;
+}
+
+
+function guardarDuplicacao() {
+
+    if (!clubeDuplicacao) {
+        return;
+    }
+
+
+    const nome =
+        document.getElementById(
+            'duplicarClubeName'
+        ).value.trim();
+
+
+    if (!nome) {
+
+        mostrarToast(
+            '❌ O nome do clube é obrigatório.'
+        );
+
+        return;
+    }
+
+
+    const {
+        liga,
+        index
+    } = clubeDuplicacao;
+
+
+    const original =
+        dados[liga][index];
+
+
+    const novoClube = {
+
+        CLUBES: nome,
+
+        CONTA:
+            document.getElementById(
+                'duplicarClubeConta'
+            ).value.trim(),
+
+        FUNÇÃO:
+            original.FUNÇÃO || 'MA',
+
+        NIF:
+            document.getElementById(
+                'duplicarClubeNIF'
+            ).value.trim(),
+
+        IBAN:
+            document.getElementById(
+                'duplicarClubeIBAN'
+            ).value.trim(),
+
+        valor:
+            parseFloat(
+                document.getElementById(
+                    'duplicarClubeValor'
+                ).value
+            ) || 0,
+
+        CONTACTO:
+            document.getElementById(
+                'duplicarClubeContacto'
+            ).value.trim(),
+
+        OBS:
+            document.getElementById(
+                'duplicarClubeObs'
+            ).value.trim(),
+
+        pago: false
+
+    };
+
+
+    dados[liga].push(novoClube);
+
+
+    salvarDadosSilencioso();
+
+    renderizarDashboard();
+
+    renderizarTabela();
+
+    atualizarStats();
+
+    fecharModalDuplicarClube();
+
+
+    mostrarToast(
+        `👯 Clube "${nome}" duplicado com sucesso.`
+    );
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+function atualizarStats() {
+
+    const clubes =
+        dados[ligaSelecionada] || [];
+
+
+    const pagos =
+        clubes.filter(
+            clube => clube.pago
+        ).length;
+
+
+    const naoPagos =
+        clubes.filter(
+            clube => !clube.pago
+        ).length;
+
+
+    document.getElementById(
+        'totalClubes'
+    ).textContent =
+        clubes.length;
+
+
+    document.getElementById(
+        'paidCount'
+    ).textContent =
+        pagos;
+
+
+    document.getElementById(
+        'unpaidCount'
+    ).textContent =
+        naoPagos;
+}
+
+
+/* =========================================================
+   EXPORTAR JSON
+========================================================= */
+
+function exportarDados() {
+
+    /*
+     * Antes de exportar garantimos
+     * que a versão atual está guardada.
+     */
+
+    salvarDadosSilencioso();
+
+
+    const json =
+        JSON.stringify(
+            dados,
+            null,
+            2
+        );
+
+
+    const blob =
+        new Blob(
+            [json],
+            {
+                type: 'application/json'
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement('a');
+
+
+    link.href = url;
+
+    link.download =
+        `clubes_futebol_${
+            new Date()
+                .toISOString()
+                .split('T')[0]
+        }.json`;
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+
+    URL.revokeObjectURL(url);
+
+
+    mostrarToast(
+        '📥 JSON exportado com sucesso.'
+    );
+}
+
+
+/* =========================================================
+   IMPORTAR JSON
+========================================================= */
+
+function importarDados() {
+
+    document.getElementById(
+        'importFile'
+    ).click();
+}
+
+
+function processarImportacao(event) {
+
+    const ficheiro =
+        event.target.files[0];
+
+
+    if (!ficheiro) {
+        return;
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(e) {
+
+        try {
+
+            const dadosImportados =
+                JSON.parse(
+                    e.target.result
+                );
+
+
+            if (
+                !dadosImportados ||
+                typeof dadosImportados !== 'object'
+            ) {
+
+                throw new Error(
+                    'Formato inválido.'
+                );
+            }
+
+
+            Object.keys(dadosLigas).forEach(
+                liga => {
+
+                    if (
+                        !Array.isArray(
+                            dadosImportados[liga]
+                        )
+                    ) {
+
+                        dadosImportados[liga] =
+                            [];
+
+                    }
+
+                }
+            );
+
+
+            dados = {};
+
+
+            Object.keys(dadosLigas).forEach(
+                liga => {
+
+                    dados[liga] =
+                        (
+                            dadosImportados[liga] ||
+                            []
+                        ).map(
+                            normalizarClube
+                        );
+
+                }
+            );
+
+
+            salvarDadosSilencioso();
+
+            criarTabs();
+
+            renderizarDashboard();
+
+            renderizarTabela();
+
+            atualizarStats();
+
+
+            mostrarToast(
+                '📤 Dados importados com sucesso.'
+            );
+
+
+        } catch (erro) {
+
+            console.error(
+                erro
+            );
+
+            mostrarToast(
+                '❌ O ficheiro JSON é inválido.'
+            );
+
+        }
+
+        event.target.value = '';
+
+    };
+
+
+    reader.readAsText(
+        ficheiro,
+        'UTF-8'
+    );
+}
+
+
+/* =========================================================
+   EXPORTAR EXCEL
+========================================================= */
+
+function exportarExcel() {
+
+    if (
+        typeof XLSX === 'undefined'
+    ) {
+
+        mostrarToast(
+            '❌ A biblioteca Excel não foi carregada.'
+        );
+
+        return;
+    }
+
+
+    salvarDadosSilencioso();
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    const totalizacoes =
+        calcularTotalizacoes();
+
+
+    let totalGeral = 0;
+
+    let pagosGeral = 0;
+
+    let naoPagosGeral = 0;
+
+    let valorTotalGeral = 0;
+
+    let valorPagoGeral = 0;
+
+    let valorPendenteGeral = 0;
+
+
+    Object.values(
+        totalizacoes
+    ).forEach(t => {
+
+        totalGeral += t.total;
+
+        pagosGeral += t.pagos;
+
+        naoPagosGeral += t.naoPagos;
+
+        valorTotalGeral += t.valorTotal;
+
+        valorPagoGeral += t.valorPago;
+
+        valorPendenteGeral += t.valorPendente;
+
+    });
+
+
+    const percentagem =
+        totalGeral > 0
+            ? Math.round(
+                (pagosGeral / totalGeral) * 100
+            )
+            : 0;
+
+
+    /* =========================
+       RESUMO
+    ========================= */
+
+    const resumoData = [
+
+        [
+            'RESUMO GERAL',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            ''
+        ],
+
+        [
+            'Data',
+            new Date().toLocaleDateString(
+                'pt-PT'
+            )
+        ],
+
+        [],
+
+        [
+            'Métrica',
+            'Valor'
+        ],
+
+        [
+            'Total de Clubes',
+            totalGeral
+        ],
+
+        [
+            'Clubes Pagos',
+            pagosGeral
+        ],
+
+        [
+            'Clubes Não Pagos',
+            naoPagosGeral
+        ],
+
+        [
+            '% de Pagamento',
+            percentagem + '%'
+        ],
+
+        [
+            'Valor Total Esperado',
+            valorTotalGeral
+        ],
+
+        [
+            'Valor Pago',
+            valorPagoGeral
+        ],
+
+        [
+            'Valor Pendente',
+            valorPendenteGeral
+        ],
+
+        [],
+
+        [
+            'Liga',
+            'Total',
+            'Pagos',
+            'Não Pagos',
+            'Valor Total',
+            'Valor Pago',
+            'Valor Pendente'
+        ]
+
+    ];
+
+
+    Object.entries(
+        totalizacoes
+    ).forEach(
+        ([liga, t]) => {
+
+            resumoData.push([
+
+                liga,
+
+                t.total,
+
+                t.pagos,
+
+                t.naoPagos,
+
+                Number(
+                    t.valorTotal.toFixed(2)
+                ),
+
+                Number(
+                    t.valorPago.toFixed(2)
+                ),
+
+                Number(
+                    t.valorPendente.toFixed(2)
+                )
+
+            ]);
+
+        }
+    );
+
+
+    const resumoSheet =
+        XLSX.utils.aoa_to_sheet(
+            resumoData
+        );
+
+
+    resumoSheet['!cols'] = [
+
+        { wch: 28 },
+
+        { wch: 18 },
+
+        { wch: 15 },
+
+        { wch: 18 },
+
+        { wch: 18 },
+
+        { wch: 18 },
+
+        { wch: 20 }
+
+    ];
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        resumoSheet,
+        'Resumo'
+    );
+
+
+    /* =========================
+       CADA LIGA
+    ========================= */
+
+    Object.entries(
+        dados
+    ).forEach(
+        ([liga, clubes]) => {
+
+            const sheetData = [
+
+                [
+                    liga.toUpperCase()
+                ],
+
+                [],
+
+                [
+                    'Clube',
+                    'Conta',
+                    'Função',
+                    'NIF',
+                    'IBAN',
+                    'Pago?',
+                    'Valor (€)',
+                    'Contacto',
+                    'Observações'
+                ]
+
+            ];
+
+
+            clubes.forEach(clube => {
+
+                sheetData.push([
+
+                    clube.CLUBES,
+
+                    clube.CONTA || '',
+
+                    clube.FUNÇÃO || '',
+
+                    clube.NIF || '',
+
+                    clube.IBAN || '',
+
+                    clube.pago
+                        ? 'Sim'
+                        : 'Não',
+
+                    Number(clube.valor) || 0,
+
+                    clube.CONTACTO || '',
+
+                    clube.OBS || ''
+
+                ]);
+
+            });
+
+
+            const totalValor =
+                clubes.reduce(
+                    (sum, clube) =>
+                        sum +
+                        (Number(clube.valor) || 0),
+                    0
+                );
+
+
+            const totalPagos =
+                clubes.filter(
+                    clube => clube.pago
+                ).length;
+
+
+            sheetData.push([]);
+
+            sheetData.push([
+
+                'TOTAL',
+
+                '',
+
+                '',
+
+                '',
+
+                '',
+
+                `${totalPagos}/${clubes.length}`,
+
+                Number(
+                    totalValor.toFixed(2)
+                ),
+
+                '',
+
+                ''
+
+            ]);
+
+
+            const sheet =
+                XLSX.utils.aoa_to_sheet(
+                    sheetData
+                );
+
+
+            sheet['!cols'] = [
+
+                { wch: 25 },
+
+                { wch: 14 },
+
+                { wch: 12 },
+
+                { wch: 15 },
+
+                { wch: 28 },
+
+                { wch: 12 },
+
+                { wch: 14 },
+
+                { wch: 35 },
+
+                { wch: 40 }
+
+            ];
+
+
+            XLSX.utils.book_append_sheet(
+                workbook,
+                sheet,
+                liga.substring(0, 31)
+            );
+
+        }
+    );
+
+
+    const filename =
+        `Clubes_Futebol_${
+            new Date()
+                .toISOString()
+                .split('T')[0]
+        }.xlsx`;
+
+
+    XLSX.writeFile(
+        workbook,
+        filename
+    );
+
+
+    mostrarToast(
+        '📊 Excel exportado com sucesso.'
+    );
+}
+
+
+/* =========================================================
+   LIMPAR / REPOR
+========================================================= */
+
+function limparDados() {
+
+    const confirmar =
+        confirm(
+            'Tem a certeza que quer limpar todos os dados?\n\n' +
+            'Todos os clubes adicionados, pagamentos e alterações serão repostos para os dados iniciais.'
+        );
+
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    dados =
+        clonarDados(
+            dadosLigas
+        );
+
+
+    salvarDadosSilencioso();
+
+    criarTabs();
+
+    renderizarDashboard();
+
+    renderizarTabela();
+
+    atualizarStats();
+
+
+    mostrarToast(
+        '🗑️ Dados repostos para os valores iniciais.'
+    );
+}
+
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escapeHtml(valor) {
+
+    if (
+        valor === null ||
+        valor === undefined
+    ) {
+        return '';
+    }
+
+
+    return String(valor)
+
+        .replace(
+            /&/g,
+            '&amp;'
+        )
+
+        .replace(
+            /</g,
+            '&lt;'
+        )
+
+        .replace(
+            />/g,
+            '&gt;'
+        )
+
+        .replace(
+            /"/g,
+            '&quot;'
+        )
+
+        .replace(
+            /'/g,
+            '&#039;'
+        );
+}
+
+
+function escapeHtmlAttribute(valor) {
+
+    return String(
+        valor || ''
+    )
+
+        .replace(
+            /\\/g,
+            '\\\\'
+        )
+
+        .replace(
+            /'/g,
+            "\\'"
+        );
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function mostrarToast(mensagem) {
+
+    const toast =
+        document.createElement('div');
+
+
+    toast.className =
+        'toast';
+
+
+    toast.textContent =
+        mensagem;
+
+
+    document.body.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.remove();
+
+        },
+        3000
+    );
+}
+
+
+/* =========================================================
+   EVENTOS
+========================================================= */
+
+document.addEventListener(
+    'DOMContentLoaded',
+    () => {
+
+        /*
+         * Carregar dados primeiro
+         */
+
+        carregarDados();
+
+
+        /*
+         * Criar separadores
+         */
+
+        criarTabs();
+
+
+        /*
+         * Renderizar interface
+         */
+
+        renderizarDashboard();
+
+        renderizarTabela();
+
+        atualizarStats();
+
+
+        /*
+         * Pesquisa
+         */
+
+        document
+            .getElementById(
+                'searchInput'
+            )
+            .addEventListener(
+                'input',
+                event => {
+
+                    filtroAtivo =
+                        event.target.value;
+
+                    renderizarTabela();
+
+                }
+            );
+
+
+        /*
+         * Fechar modal editar
+         */
+
+        document
+            .getElementById('modal')
+            .addEventListener(
+                'click',
+                event => {
+
+                    if (
+                        event.target.id ===
+                        'modal'
+                    ) {
+
+                        fecharModal();
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * Fechar modal novo clube
+         */
+
+        document
+            .getElementById(
+                'modalNovoClube'
+            )
+            .addEventListener(
+                'click',
+                event => {
+
+                    if (
+                        event.target.id ===
+                        'modalNovoClube'
+                    ) {
+
+                        fecharModalNovoClube();
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * Fechar modal duplicar
+         */
+
+        document
+            .getElementById(
+                'modalDuplicarClube'
+            )
+            .addEventListener(
+                'click',
+                event => {
+
+                    if (
+                        event.target.id ===
+                        'modalDuplicarClube'
+                    ) {
+
+                        fecharModalDuplicarClube();
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * Importar JSON
+         */
+
+        document
+            .getElementById(
+                'importFile'
+            )
+            .addEventListener(
+                'change',
+                processarImportacao
+            );
+
+
+        /*
+         * ESC fecha modais
+         */
+
+        document.addEventListener(
+            'keydown',
+            event => {
+
+                if (
+                    event.key === 'Escape'
+                ) {
+
+                    fecharModal();
+
+                    fecharModalNovoClube();
+
+                    fecharModalDuplicarClube();
+
+                }
+
+            }
+        );
+
+
+        /*
+         * Guardar antes de sair
+         */
+
+        window.addEventListener(
+            'beforeunload',
+            () => {
+
+                salvarDadosSilencioso();
+
+            }
+        );
+
+
+        /*
+         * Backup automático
+         *
+         * NÃO mostra Toast.
+         */
+
+        setInterval(
+            () => {
+
+                salvarDadosSilencioso();
+
+            },
+            30000
+        );
+
+    }
+);
+
+</script>
+
 </body>
 </html>
