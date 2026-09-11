@@ -16,13 +16,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
                 Roboto, 'Helvetica Neue', Arial, sans-serif;
-
-            background: linear-gradient(
-                135deg,
-                #0f4c3a 0%,
-                #1a5d4a 100%
-            );
-
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5d4a 100%);
             color: #1f1f1f;
             min-height: 100vh;
             padding: 20px;
@@ -37,17 +31,10 @@
             overflow: hidden;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
+        /* HEADER */
 
         .header {
-            background: linear-gradient(
-                135deg,
-                #0f4c3a 0%,
-                #1a5d4a 100%
-            );
-
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5d4a 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -65,9 +52,7 @@
             opacity: 0.9;
         }
 
-        /* =========================
-           TOOLBAR
-        ========================= */
+        /* TOOLBAR */
 
         .toolbar {
             display: flex;
@@ -119,6 +104,12 @@
             transform: scale(0.98);
         }
 
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-primary {
             background: #0f4c3a;
             color: white;
@@ -165,9 +156,7 @@
             color: white;
         }
 
-        /* =========================
-           SAVE STATUS
-        ========================= */
+        /* SAVE STATUS */
 
         .save-status {
             display: flex;
@@ -185,15 +174,18 @@
             border-radius: 50%;
             background: #2e7d32;
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .save-dot.unsaved {
             background: #f9a825;
         }
 
-        /* =========================
-           DASHBOARD
-        ========================= */
+        .save-dot.error {
+            background: #d32f2f;
+        }
+
+        /* DASHBOARD */
 
         .dashboard {
             padding: 30px;
@@ -210,21 +202,13 @@
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(200px, 1fr)
-            );
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
             margin-bottom: 24px;
         }
 
         .card {
-            background: linear-gradient(
-                135deg,
-                #f5f5f5 0%,
-                #fafafa 100%
-            );
-
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
             border: 1px solid #e5e5e5;
             border-radius: 8px;
             padding: 20px;
@@ -259,12 +243,7 @@
         }
 
         .card.alert {
-            background: linear-gradient(
-                135deg,
-                #fff5f5 0%,
-                #fffafa 100%
-            );
-
+            background: linear-gradient(135deg, #fff5f5 0%, #fffafa 100%);
             border-color: #ffb3b3;
         }
 
@@ -273,12 +252,7 @@
         }
 
         .card.success {
-            background: linear-gradient(
-                135deg,
-                #f5fff5 0%,
-                #fafffe 100%
-            );
-
+            background: linear-gradient(135deg, #f5fff5 0%, #fafffe 100%);
             border-color: #b3ffb3;
         }
 
@@ -286,9 +260,7 @@
             color: #2e7d32;
         }
 
-        /* =========================
-           LIGA SUMMARY
-        ========================= */
+        /* LIGA SUMMARY */
 
         .ligas-resumo {
             margin-top: 30px;
@@ -319,11 +291,7 @@
 
         .liga-stats {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(150px, 1fr)
-            );
-
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
             font-size: 14px;
         }
@@ -349,9 +317,7 @@
             color: #d32f2f;
         }
 
-        /* =========================
-           TABS
-        ========================= */
+        /* TABS */
 
         .tabs {
             display: flex;
@@ -383,9 +349,7 @@
             margin-bottom: -2px;
         }
 
-        /* =========================
-           CONTENT
-        ========================= */
+        /* CONTENT */
 
         .content {
             padding: 30px;
@@ -466,6 +430,7 @@
             border-radius: 12px;
             font-size: 12px;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .status-pago {
@@ -485,9 +450,7 @@
             min-width: 220px;
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
+        /* FOOTER */
 
         .footer {
             background: #f9f9f9;
@@ -520,9 +483,7 @@
             font-size: 16px;
         }
 
-        /* =========================
-           TOAST
-        ========================= */
+        /* TOAST */
 
         .toast {
             position: fixed;
@@ -535,7 +496,11 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             animation: slideIn 0.3s ease-out;
             z-index: 5000;
-            max-width: 350px;
+            max-width: 380px;
+        }
+
+        .toast.error {
+            background: #c62828;
         }
 
         @keyframes slideIn {
@@ -550,9 +515,7 @@
             }
         }
 
-        /* =========================
-           EMPTY DATA
-        ========================= */
+        /* EMPTY DATA */
 
         .no-data {
             text-align: center;
@@ -564,9 +527,7 @@
             font-size: 15px;
         }
 
-        /* =========================
-           MODALS
-        ========================= */
+        /* MODALS */
 
         .modal {
             display: none;
@@ -626,9 +587,15 @@
             flex: 1;
         }
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
+        /* STORAGE INFO */
+
+        .storage-info {
+            font-size: 11px;
+            color: #888;
+            margin-left: 10px;
+        }
+
+        /* RESPONSIVE */
 
         @media (max-width: 768px) {
 
@@ -710,18 +677,15 @@
 
 <div class="container">
 
-    <!-- =========================
-         HEADER
-    ========================= -->
+    <!-- HEADER -->
 
     <div class="header">
         <h1>⚽ Gestor de Clubes de Futebol</h1>
         <p>Controlo de pagamentos e dados das três ligas</p>
     </div>
 
-    <!-- =========================
-         TOOLBAR
-    ========================= -->
+
+    <!-- TOOLBAR -->
 
     <div class="toolbar">
 
@@ -782,32 +746,37 @@
 
         <div class="save-status">
             <span class="save-dot" id="saveDot"></span>
-            <span id="saveStatusText">Dados guardados</span>
+
+            <span id="saveStatusText">
+                A iniciar armazenamento...
+            </span>
+
+            <span
+                class="storage-info"
+                id="storageInfo"
+            ></span>
         </div>
 
     </div>
 
-    <!-- =========================
-         DASHBOARD
-    ========================= -->
+
+    <!-- DASHBOARD -->
 
     <div
         class="dashboard"
         id="dashboard"
     ></div>
 
-    <!-- =========================
-         TABS
-    ========================= -->
+
+    <!-- TABS -->
 
     <div
         class="tabs"
         id="tabsContainer"
     ></div>
 
-    <!-- =========================
-         CONTENT
-    ========================= -->
+
+    <!-- CONTENT -->
 
     <div class="content">
 
@@ -815,9 +784,8 @@
 
     </div>
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
+
+    <!-- FOOTER -->
 
     <div class="footer">
 
@@ -879,6 +847,20 @@
             type="text"
             id="modalClube"
             readonly
+        >
+
+        <label>Conta Interna</label>
+
+        <input
+            type="text"
+            id="modalConta"
+        >
+
+        <label>Função</label>
+
+        <input
+            type="text"
+            id="modalFuncao"
         >
 
         <label>NIF (Contribuinte)</label>
@@ -1178,11 +1160,38 @@
 
 const STORAGE_KEY = 'futebolDados';
 
+const DB_NAME = 'GestorClubesFutebolDB';
+
+const DB_VERSION = 1;
+
+const DB_STORE = 'dados';
+
+
 let ligaSelecionada = '1 Liga';
+
 let filtroAtivo = '';
+
 let dados = {};
+
 let edicaoAtiva = null;
+
 let clubeDuplicacao = null;
+
+let db = null;
+
+let armazenamentoAtual = '';
+
+let ultimaGravacao = null;
+
+
+/*
+ * Fila de gravação.
+ *
+ * Evita que várias gravações simultâneas
+ * se sobreponham.
+ */
+
+let filaGravacao = Promise.resolve();
 
 
 /* =========================================================
@@ -1445,8 +1454,8 @@ const dadosLigas = {
             NIF: '',
             IBAN: '',
             valor: 0,
-            OBS: '',
-            CONTACTO: 'DEL. PORTO',
+            OBS: 'DEL. PORTO',
+            CONTACTO: '',
             pago: false
         },
 
@@ -1585,128 +1594,789 @@ const dadosLigas = {
 ========================================================= */
 
 function clonarDados(obj) {
-    return JSON.parse(JSON.stringify(obj));
+
+    return JSON.parse(
+        JSON.stringify(obj)
+    );
+
 }
 
 
 function normalizarClube(clube) {
 
+    clube =
+        clube &&
+        typeof clube === 'object'
+            ? clube
+            : {};
+
+
     return {
 
-        CLUBES: clube.CLUBES || '',
+        CLUBES:
+            clube.CLUBES != null
+                ? String(clube.CLUBES)
+                : '',
 
-        CONTA: clube.CONTA || '',
+        CONTA:
+            clube.CONTA != null
+                ? String(clube.CONTA)
+                : '',
 
-        FUNÇÃO: clube.FUNÇÃO || 'MA',
+        FUNÇÃO:
+            clube.FUNÇÃO != null &&
+            String(clube.FUNÇÃO).trim()
+                ? String(clube.FUNÇÃO)
+                : 'MA',
 
-        NIF: clube.NIF || '',
+        NIF:
+            clube.NIF != null
+                ? String(clube.NIF)
+                : '',
 
-        IBAN: clube.IBAN || '',
+        IBAN:
+            clube.IBAN != null
+                ? String(clube.IBAN)
+                : '',
 
-        valor: Number(clube.valor) || 0,
+        valor:
+            Number(clube.valor) || 0,
 
-        OBS: clube.OBS || '',
+        OBS:
+            clube.OBS != null
+                ? String(clube.OBS)
+                : '',
 
-        CONTACTO: clube.CONTACTO || '',
+        CONTACTO:
+            clube.CONTACTO != null
+                ? String(clube.CONTACTO)
+                : '',
 
-        pago: Boolean(clube.pago)
+        pago:
+            clube.pago === true
 
     };
+
 }
 
 
 /* =========================================================
-   SISTEMA DE GRAVAÇÃO
+   INDEXEDDB
+========================================================= */
+
+function abrirBaseDados() {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (!window.indexedDB) {
+
+                reject(
+                    new Error(
+                        'IndexedDB não está disponível neste navegador.'
+                    )
+                );
+
+                return;
+            }
+
+
+            const request =
+                window.indexedDB.open(
+                    DB_NAME,
+                    DB_VERSION
+                );
+
+
+            request.onupgradeneeded =
+                function(event) {
+
+                    const database =
+                        event.target.result;
+
+
+                    if (
+                        !database.objectStoreNames.contains(
+                            DB_STORE
+                        )
+                    ) {
+
+                        database.createObjectStore(
+                            DB_STORE
+                        );
+
+                    }
+
+                };
+
+
+            request.onsuccess =
+                function(event) {
+
+                    db =
+                        event.target.result;
+
+
+                    armazenamentoAtual =
+                        'IndexedDB';
+
+
+                    atualizarInformacaoArmazenamento();
+
+
+                    console.log(
+                        '✅ IndexedDB disponível.'
+                    );
+
+
+                    resolve(db);
+
+                };
+
+
+            request.onerror =
+                function(event) {
+
+                    reject(
+                        event.target.error ||
+                        new Error(
+                            'Erro ao abrir IndexedDB.'
+                        )
+                    );
+
+                };
+
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   GUARDAR INDEXEDDB
+========================================================= */
+
+function guardarNoIndexedDB(snapshot) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (!db) {
+
+                reject(
+                    new Error(
+                        'IndexedDB não está disponível.'
+                    )
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const transaction =
+                    db.transaction(
+                        [DB_STORE],
+                        'readwrite'
+                    );
+
+
+                const store =
+                    transaction.objectStore(
+                        DB_STORE
+                    );
+
+
+                const request =
+                    store.put(
+                        snapshot,
+                        STORAGE_KEY
+                    );
+
+
+                request.onsuccess =
+                    function() {
+
+                        resolve(true);
+
+                    };
+
+
+                request.onerror =
+                    function(event) {
+
+                        reject(
+                            event.target.error ||
+                            new Error(
+                                'Erro ao guardar no IndexedDB.'
+                            )
+                        );
+
+                    };
+
+
+            } catch (erro) {
+
+                reject(erro);
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LER INDEXEDDB
+========================================================= */
+
+function lerDoIndexedDB() {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (!db) {
+
+                reject(
+                    new Error(
+                        'IndexedDB não está disponível.'
+                    )
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const transaction =
+                    db.transaction(
+                        [DB_STORE],
+                        'readonly'
+                    );
+
+
+                const store =
+                    transaction.objectStore(
+                        DB_STORE
+                    );
+
+
+                const request =
+                    store.get(
+                        STORAGE_KEY
+                    );
+
+
+                request.onsuccess =
+                    function(event) {
+
+                        resolve(
+                            event.target.result ||
+                            null
+                        );
+
+                    };
+
+
+                request.onerror =
+                    function(event) {
+
+                        reject(
+                            event.target.error ||
+                            new Error(
+                                'Erro ao ler IndexedDB.'
+                            )
+                        );
+
+                    };
+
+
+            } catch (erro) {
+
+                reject(erro);
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESTADO DE GRAVAÇÃO
 ========================================================= */
 
 function marcarNaoGuardado() {
 
-    const dot = document.getElementById('saveDot');
-    const text = document.getElementById('saveStatusText');
+    const dot =
+        document.getElementById(
+            'saveDot'
+        );
 
-    if (!dot || !text) return;
+    const text =
+        document.getElementById(
+            'saveStatusText'
+        );
 
-    dot.classList.add('unsaved');
 
-    text.textContent = 'A guardar...';
+    if (!dot || !text) {
+        return;
+    }
+
+
+    dot.classList.remove(
+        'error'
+    );
+
+
+    dot.classList.add(
+        'unsaved'
+    );
+
+
+    text.textContent =
+        'A guardar...';
+
 }
 
 
 function atualizarEstadoGuardado() {
 
-    const dot = document.getElementById('saveDot');
-    const text = document.getElementById('saveStatusText');
+    const dot =
+        document.getElementById(
+            'saveDot'
+        );
 
-    if (!dot || !text) return;
+    const text =
+        document.getElementById(
+            'saveStatusText'
+        );
 
-    dot.classList.remove('unsaved');
+
+    if (!dot || !text) {
+        return;
+    }
+
+
+    dot.classList.remove(
+        'unsaved',
+        'error'
+    );
+
+
+    ultimaGravacao =
+        new Date();
+
 
     text.textContent =
         'Guardado às ' +
-        new Date().toLocaleTimeString('pt-PT', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
+        ultimaGravacao.toLocaleTimeString(
+            'pt-PT',
+            {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            }
+        );
+
+
+    atualizarInformacaoArmazenamento();
+
 }
 
 
-/*
- * Esta é a função PRINCIPAL de gravação.
- *
- * É chamada depois de cada alteração.
- */
+function atualizarEstadoErro() {
 
-function salvarDadosSilencioso() {
+    const dot =
+        document.getElementById(
+            'saveDot'
+        );
+
+    const text =
+        document.getElementById(
+            'saveStatusText'
+        );
+
+
+    if (!dot || !text) {
+        return;
+    }
+
+
+    dot.classList.remove(
+        'unsaved'
+    );
+
+
+    dot.classList.add(
+        'error'
+    );
+
+
+    text.textContent =
+        'Erro ao guardar';
+
+}
+
+
+function atualizarInformacaoArmazenamento() {
+
+    const elemento =
+        document.getElementById(
+            'storageInfo'
+        );
+
+
+    if (!elemento) {
+        return;
+    }
+
+
+    if (
+        armazenamentoAtual ===
+        'IndexedDB'
+    ) {
+
+        elemento.textContent =
+            '• IndexedDB';
+
+    } else if (
+        armazenamentoAtual ===
+        'localStorage'
+    ) {
+
+        elemento.textContent =
+            '• Fallback local';
+
+    } else if (
+        armazenamentoAtual ===
+        'memória'
+    ) {
+
+        elemento.textContent =
+            '• Apenas memória';
+
+    } else {
+
+        elemento.textContent =
+            '';
+
+    }
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE - FALLBACK
+========================================================= */
+
+function lerLocalStorage() {
+
+    try {
+
+        const valor =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+
+        if (!valor) {
+            return null;
+        }
+
+
+        return JSON.parse(valor);
+
+    } catch (erro) {
+
+        console.warn(
+            '⚠️ Não foi possível ler localStorage:',
+            erro
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+function guardarLocalStorage(snapshot) {
 
     try {
 
         localStorage.setItem(
             STORAGE_KEY,
-            JSON.stringify(dados)
+            JSON.stringify(snapshot)
         );
 
-        atualizarEstadoGuardado();
-
-        console.log(
-            '💾 Dados guardados:',
-            new Date().toLocaleString('pt-PT')
-        );
 
         return true;
 
     } catch (erro) {
 
         console.error(
-            '❌ Erro ao guardar:',
+            '❌ localStorage falhou:',
             erro
         );
 
-        const mensagem =
-            erro && erro.name === 'QuotaExceededError'
-                ? '❌ O armazenamento do navegador está cheio.'
-                : '❌ Não foi possível guardar os dados.';
-
-        mostrarToast(mensagem);
 
         return false;
+
     }
+
+}
+
+
+/* =========================================================
+   SISTEMA PRINCIPAL DE GRAVAÇÃO
+========================================================= */
+
+function guardarInternamente(snapshot) {
+
+    return filaGravacao =
+        filaGravacao
+            .then(
+                async () => {
+
+                    /*
+                     * Primeiro IndexedDB.
+                     */
+
+                    if (db) {
+
+                        try {
+
+                            await guardarNoIndexedDB(
+                                snapshot
+                            );
+
+
+                            armazenamentoAtual =
+                                'IndexedDB';
+
+
+                            atualizarEstadoGuardado();
+
+
+                            return true;
+
+                        } catch (erroIndexedDB) {
+
+                            console.warn(
+                                '⚠️ IndexedDB falhou. A tentar fallback:',
+                                erroIndexedDB
+                            );
+
+                        }
+
+                    }
+
+
+                    /*
+                     * Fallback localStorage.
+                     */
+
+                    const sucessoLocal =
+                        guardarLocalStorage(
+                            snapshot
+                        );
+
+
+                    if (sucessoLocal) {
+
+                        armazenamentoAtual =
+                            'localStorage';
+
+
+                        atualizarEstadoGuardado();
+
+
+                        return true;
+
+                    }
+
+
+                    /*
+                     * Não foi possível guardar.
+                     */
+
+                    armazenamentoAtual =
+                        'memória';
+
+
+                    atualizarEstadoErro();
+
+
+                    return false;
+
+                }
+            );
+
 }
 
 
 /*
- * Botão Guardar
+ * Função chamada por toda a aplicação.
  */
 
-function guardarDados() {
+async function salvarDadosSilencioso() {
+
+    const snapshot =
+        clonarDados(
+            dados
+        );
+
+
+    try {
+
+        const sucesso =
+            await guardarInternamente(
+                snapshot
+            );
+
+
+        if (!sucesso) {
+
+            console.error(
+                '❌ Não foi possível persistir os dados.'
+            );
+
+        }
+
+
+        return sucesso;
+
+    } catch (erro) {
+
+        console.error(
+            '❌ Erro inesperado ao guardar:',
+            erro
+        );
+
+
+        atualizarEstadoErro();
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   BOTÃO GUARDAR
+========================================================= */
+
+async function guardarDados() {
 
     marcarNaoGuardado();
 
-    const sucesso = salvarDadosSilencioso();
+
+    const sucesso =
+        await salvarDadosSilencioso();
+
 
     if (sucesso) {
-        mostrarToast('💾 Dados guardados com sucesso!');
+
+        mostrarToast(
+            '💾 Dados guardados com sucesso!'
+        );
+
+    } else {
+
+        mostrarToast(
+            '❌ Não foi possível guardar os dados.',
+            true
+        );
+
     }
+
+}
+
+
+/* =========================================================
+   NORMALIZAÇÃO DE DADOS
+========================================================= */
+
+function normalizarDadosGuardados(
+    dadosGuardados
+) {
+
+    const resultado =
+        clonarDados(
+            dadosLigas
+        );
+
+
+    if (
+        !dadosGuardados ||
+        typeof dadosGuardados !== 'object'
+    ) {
+
+        return resultado;
+
+    }
+
+
+    Object.keys(
+        dadosGuardados
+    ).forEach(
+        liga => {
+
+            if (
+                Array.isArray(
+                    dadosGuardados[liga]
+                )
+            ) {
+
+                resultado[liga] =
+                    dadosGuardados[liga]
+                        .map(
+                            normalizarClube
+                        );
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Garantir que as ligas padrão existem.
+     */
+
+    Object.keys(
+        dadosLigas
+    ).forEach(
+        liga => {
+
+            if (
+                !Array.isArray(
+                    resultado[liga]
+                )
+            ) {
+
+                resultado[liga] =
+                    clonarDados(
+                        dadosLigas[liga]
+                    );
+
+            }
+
+        }
+    );
+
+
+    return resultado;
+
 }
 
 
@@ -1714,94 +2384,211 @@ function guardarDados() {
    CARREGAR DADOS
 ========================================================= */
 
-function carregarDados() {
+async function carregarDados() {
+
+    /*
+     * Tentar abrir IndexedDB.
+     */
 
     try {
 
-        const dadosGuardados =
-            localStorage.getItem(STORAGE_KEY);
+        await abrirBaseDados();
+
 
         /*
-         * Se existirem dados guardados,
-         * carregamos esses dados.
+         * Procurar dados existentes.
          */
 
-        if (dadosGuardados) {
+        const dadosExistentes =
+            await lerDoIndexedDB();
 
-            const dadosParseados =
-                JSON.parse(dadosGuardados);
 
-            dados = clonarDados(dadosLigas);
+        if (dadosExistentes) {
 
-            Object.keys(dadosParseados).forEach(liga => {
+            dados =
+                normalizarDadosGuardados(
+                    dadosExistentes
+                );
 
-                if (
-                    Array.isArray(
-                        dadosParseados[liga]
-                    )
-                ) {
 
-                    dados[liga] =
-                        dadosParseados[liga]
-                            .map(normalizarClube);
-                }
+            armazenamentoAtual =
+                'IndexedDB';
 
-            });
+
+            atualizarEstadoGuardado();
+
+
+            console.log(
+                '✅ Dados carregados do IndexedDB.'
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * Não há dados no IndexedDB.
+         *
+         * Procurar dados antigos no localStorage.
+         */
+
+        const dadosAntigos =
+            lerLocalStorage();
+
+
+        if (dadosAntigos) {
+
+            dados =
+                normalizarDadosGuardados(
+                    dadosAntigos
+                );
+
 
             /*
-             * Se entretanto for criada uma nova liga
-             * no código, ela também fica disponível.
+             * Migrar para IndexedDB.
              */
 
-            Object.keys(dadosLigas).forEach(liga => {
+            await guardarNoIndexedDB(
+                clonarDados(dados)
+            );
 
-                if (!dados[liga]) {
 
-                    dados[liga] =
-                        clonarDados(
-                            dadosLigas[liga]
-                        );
+            armazenamentoAtual =
+                'IndexedDB';
 
-                }
 
-            });
+            atualizarEstadoGuardado();
+
+
+            console.log(
+                '✅ Dados antigos migrados para IndexedDB.'
+            );
+
+
+            mostrarToast(
+                '✅ Dados existentes migrados para o novo armazenamento.'
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * Não existem dados.
+         *
+         * Criar dados iniciais.
+         */
+
+        dados =
+            clonarDados(
+                dadosLigas
+            );
+
+
+        await guardarNoIndexedDB(
+            clonarDados(dados)
+        );
+
+
+        armazenamentoAtual =
+            'IndexedDB';
+
+
+        atualizarEstadoGuardado();
+
+
+        console.log(
+            'ℹ️ Dados iniciais criados.'
+        );
+
+
+    } catch (erroIndexedDB) {
+
+        console.warn(
+            '⚠️ IndexedDB indisponível:',
+            erroIndexedDB
+        );
+
+
+        /*
+         * Fallback para localStorage.
+         */
+
+        const dadosAntigos =
+            lerLocalStorage();
+
+
+        if (dadosAntigos) {
+
+            dados =
+                normalizarDadosGuardados(
+                    dadosAntigos
+                );
+
+
+            armazenamentoAtual =
+                'localStorage';
+
+
+            atualizarEstadoGuardado();
+
 
             console.log(
                 '✅ Dados carregados do localStorage.'
             );
 
-            atualizarEstadoGuardado();
 
             return;
+
         }
 
 
         /*
-         * Não existem dados guardados.
-         * Criamos os dados iniciais.
+         * Sem dados guardados.
          */
 
-        dados = clonarDados(dadosLigas);
+        dados =
+            clonarDados(
+                dadosLigas
+            );
 
-        salvarDadosSilencioso();
 
-        console.log(
-            'ℹ️ Dados iniciais carregados.'
-        );
+        const conseguiuGuardar =
+            guardarLocalStorage(
+                clonarDados(dados)
+            );
 
-    } catch (erro) {
 
-        console.error(
-            '❌ Erro ao carregar dados:',
-            erro
-        );
+        if (conseguiuGuardar) {
 
-        dados = clonarDados(dadosLigas);
+            armazenamentoAtual =
+                'localStorage';
 
-        mostrarToast(
-            '⚠️ Os dados guardados estavam inválidos. Foram carregados os dados iniciais.'
-        );
+
+            atualizarEstadoGuardado();
+
+        } else {
+
+            armazenamentoAtual =
+                'memória';
+
+
+            atualizarEstadoErro();
+
+
+            mostrarToast(
+                '⚠️ O armazenamento do navegador está indisponível. Os dados funcionarão enquanto esta página estiver aberta.',
+                true
+            );
+
+        }
+
     }
+
 }
 
 
@@ -1813,50 +2600,87 @@ function calcularTotalizacoes() {
 
     const totalizacoes = {};
 
-    Object.keys(dados).forEach(liga => {
 
-        const clubes = dados[liga] || [];
+    Object.keys(
+        dados
+    ).forEach(
+        liga => {
 
-        const pagos =
-            clubes.filter(clube => clube.pago);
-
-        const naoPagos =
-            clubes.filter(clube => !clube.pago);
-
-        totalizacoes[liga] = {
-
-            total: clubes.length,
-
-            pagos: pagos.length,
-
-            naoPagos: naoPagos.length,
-
-            valorTotal:
-                clubes.reduce(
-                    (sum, clube) =>
-                        sum + (Number(clube.valor) || 0),
-                    0
-                ),
-
-            valorPago:
-                pagos.reduce(
-                    (sum, clube) =>
-                        sum + (Number(clube.valor) || 0),
-                    0
-                ),
-
-            valorPendente:
-                naoPagos.reduce(
-                    (sum, clube) =>
-                        sum + (Number(clube.valor) || 0),
-                    0
+            const clubes =
+                Array.isArray(
+                    dados[liga]
                 )
+                    ? dados[liga]
+                    : [];
 
-        };
 
-    });
+            const pagos =
+                clubes.filter(
+                    clube => clube.pago === true
+                );
+
+
+            const naoPagos =
+                clubes.filter(
+                    clube => clube.pago !== true
+                );
+
+
+            totalizacoes[liga] = {
+
+                total:
+                    clubes.length,
+
+                pagos:
+                    pagos.length,
+
+                naoPagos:
+                    naoPagos.length,
+
+                valorTotal:
+                    clubes.reduce(
+                        (sum, clube) =>
+                            sum +
+                            (
+                                Number(
+                                    clube.valor
+                                ) || 0
+                            ),
+                        0
+                    ),
+
+                valorPago:
+                    pagos.reduce(
+                        (sum, clube) =>
+                            sum +
+                            (
+                                Number(
+                                    clube.valor
+                                ) || 0
+                            ),
+                        0
+                    ),
+
+                valorPendente:
+                    naoPagos.reduce(
+                        (sum, clube) =>
+                            sum +
+                            (
+                                Number(
+                                    clube.valor
+                                ) || 0
+                            ),
+                        0
+                    )
+
+            };
+
+        }
+    );
+
 
     return totalizacoes;
+
 }
 
 
@@ -1865,34 +2689,48 @@ function renderizarDashboard() {
     const totalizacoes =
         calcularTotalizacoes();
 
+
     let totalGeral = 0;
+
     let pagosGeral = 0;
+
     let pendentesGeral = 0;
+
     let valorTotalGeral = 0;
+
     let valorPagoGeral = 0;
+
     let valorPendenteGeral = 0;
 
-    Object.values(totalizacoes).forEach(t => {
 
-        totalGeral += t.total;
+    Object.values(
+        totalizacoes
+    ).forEach(
+        t => {
 
-        pagosGeral += t.pagos;
+            totalGeral += t.total;
 
-        pendentesGeral += t.naoPagos;
+            pagosGeral += t.pagos;
 
-        valorTotalGeral += t.valorTotal;
+            pendentesGeral += t.naoPagos;
 
-        valorPagoGeral += t.valorPago;
+            valorTotalGeral += t.valorTotal;
 
-        valorPendenteGeral += t.valorPendente;
+            valorPagoGeral += t.valorPago;
 
-    });
+            valorPendenteGeral += t.valorPendente;
+
+        }
+    );
 
 
     const percentagem =
         totalGeral > 0
             ? Math.round(
-                (pagosGeral / totalGeral) * 100
+                (
+                    pagosGeral /
+                    totalGeral
+                ) * 100
             )
             : 0;
 
@@ -2006,7 +2844,9 @@ function renderizarDashboard() {
     `;
 
 
-    Object.entries(totalizacoes).forEach(
+    Object.entries(
+        totalizacoes
+    ).forEach(
         ([liga, t]) => {
 
             html += `
@@ -2016,7 +2856,7 @@ function renderizarDashboard() {
                     <div class="liga-card-header">
 
                         <span class="liga-name">
-                            ${liga}
+                            ${escapeHtml(liga)}
                         </span>
 
                         <span style="font-size:13px;color:#999;">
@@ -2119,15 +2959,19 @@ function renderizarDashboard() {
                 </div>
 
             `;
+
         }
     );
 
 
     html += `</div>`;
 
+
     document.getElementById(
         'dashboard'
-    ).innerHTML = html;
+    ).innerHTML =
+        html;
+
 }
 
 
@@ -2142,13 +2986,21 @@ function criarTabs() {
             'tabsContainer'
         );
 
-    tabsContainer.innerHTML = '';
 
-    Object.keys(dadosLigas).forEach(
+    tabsContainer.innerHTML =
+        '';
+
+
+    Object.keys(
+        dados
+    ).forEach(
         liga => {
 
             const tab =
-                document.createElement('button');
+                document.createElement(
+                    'button'
+                );
+
 
             tab.className =
                 'tab' +
@@ -2158,43 +3010,73 @@ function criarTabs() {
                         : ''
                 );
 
-            tab.textContent = liga;
+
+            tab.textContent =
+                liga;
+
 
             tab.addEventListener(
                 'click',
                 () => mudarLiga(liga)
             );
 
-            tabsContainer.appendChild(tab);
+
+            tabsContainer.appendChild(
+                tab
+            );
 
         }
     );
+
 }
 
 
 function mudarLiga(liga) {
 
-    ligaSelecionada = liga;
+    if (
+        !dados[liga]
+    ) {
+
+        return;
+
+    }
+
+
+    ligaSelecionada =
+        liga;
+
 
     document
-        .querySelectorAll('.tab')
-        .forEach(tab => {
+        .querySelectorAll(
+            '.tab'
+        )
+        .forEach(
+            tab => {
 
-            tab.classList.remove('active');
+                tab.classList.remove(
+                    'active'
+                );
 
-            if (
-                tab.textContent === liga
-            ) {
 
-                tab.classList.add('active');
+                if (
+                    tab.textContent ===
+                    liga
+                ) {
+
+                    tab.classList.add(
+                        'active'
+                    );
+
+                }
 
             }
+        );
 
-        });
 
     renderizarTabela();
 
     atualizarStats();
+
 }
 
 
@@ -2205,7 +3087,12 @@ function mudarLiga(liga) {
 function renderizarTabela() {
 
     const clubes =
-        dados[ligaSelecionada] || [];
+        Array.isArray(
+            dados[ligaSelecionada]
+        )
+            ? dados[ligaSelecionada]
+            : [];
+
 
     const termo =
         filtroAtivo
@@ -2214,13 +3101,31 @@ function renderizarTabela() {
 
 
     const filtrados =
-        termo
-            ? clubes.filter(clube =>
-                String(clube.CLUBES || '')
-                    .toLowerCase()
-                    .includes(termo)
+        clubes
+            .map(
+                (clube, index) => ({
+                    clube,
+                    index
+                })
             )
-            : clubes;
+            .filter(
+                item => {
+
+                    if (!termo) {
+                        return true;
+                    }
+
+
+                    return String(
+                        item.clube.CLUBES || ''
+                    )
+                        .toLowerCase()
+                        .includes(
+                            termo
+                        );
+
+                }
+            );
 
 
     let html = `
@@ -2276,7 +3181,9 @@ function renderizarTabela() {
     `;
 
 
-    if (filtrados.length === 0) {
+    if (
+        filtrados.length === 0
+    ) {
 
         html += `
 
@@ -2299,157 +3206,162 @@ function renderizarTabela() {
 
     } else {
 
-        filtrados.forEach(clube => {
+        filtrados.forEach(
+            item => {
 
-            const index =
-                clubes.indexOf(clube);
+                const clube =
+                    item.clube;
 
-
-            const statusBadge =
-                clube.pago
-
-                    ? `
-                        <span class="status-badge status-pago">
-                            Pago
-                        </span>
-                    `
-
-                    : `
-                        <span class="status-badge status-nao-pago">
-                            Não Pago
-                        </span>
-                    `;
+                const index =
+                    item.index;
 
 
-            html += `
+                const statusBadge =
+                    clube.pago
 
-                <tr>
+                        ? `
+                            <span class="status-badge status-pago">
+                                Pago
+                            </span>
+                        `
 
-                    <td>
-
-                        <div class="status-pagamento">
-
-                            <input
-                                type="checkbox"
-                                ${
-                                    clube.pago
-                                        ? 'checked'
-                                        : ''
-                                }
-                                onchange="
-                                    togglePagamento(
-                                        '${escapeHtmlAttribute(ligaSelecionada)}',
-                                        ${index}
-                                    )
-                                "
-                            >
-
-                            ${statusBadge}
-
-                        </div>
-
-                    </td>
+                        : `
+                            <span class="status-badge status-nao-pago">
+                                Não Pago
+                            </span>
+                        `;
 
 
-                    <td class="clube-name">
-                        ${escapeHtml(clube.CLUBES)}
-                    </td>
+                html += `
+
+                    <tr>
+
+                        <td>
+
+                            <div class="status-pagamento">
+
+                                <input
+                                    type="checkbox"
+                                    ${
+                                        clube.pago
+                                            ? 'checked'
+                                            : ''
+                                    }
+                                    onchange="
+                                        togglePagamento(
+                                            '${escapeHtmlAttribute(ligaSelecionada)}',
+                                            ${index}
+                                        )
+                                    "
+                                >
+
+                                ${statusBadge}
+
+                            </div>
+
+                        </td>
 
 
-                    <td>
-                        ${escapeHtml(clube.CONTA || '-')}
-                    </td>
+                        <td class="clube-name">
+                            ${escapeHtml(clube.CLUBES)}
+                        </td>
 
 
-                    <td>
-                        <strong>
-                            ${escapeHtml(clube.NIF || '-')}
-                        </strong>
-                    </td>
+                        <td>
+                            ${escapeHtml(clube.CONTA || '-')}
+                        </td>
 
 
-                    <td>
-                        <small>
-                            ${escapeHtml(clube.IBAN || '-')}
-                        </small>
-                    </td>
+                        <td>
+                            <strong>
+                                ${escapeHtml(clube.NIF || '-')}
+                            </strong>
+                        </td>
 
 
-                    <td>
-                        ${
-                            Number(clube.valor) > 0
-                                ? Number(clube.valor)
-                                    .toFixed(2) + '€'
-                                : '-'
-                        }
-                    </td>
+                        <td>
+                            <small>
+                                ${escapeHtml(clube.IBAN || '-')}
+                            </small>
+                        </td>
 
 
-                    <td>
-                        <small>
-                            ${escapeHtml(clube.CONTACTO || '-')}
-                        </small>
-                    </td>
+                        <td>
+                            ${
+                                Number(clube.valor) > 0
+                                    ? Number(clube.valor)
+                                        .toFixed(2) + '€'
+                                    : '-'
+                            }
+                        </td>
 
 
-                    <td>
-                        <small>
-                            ${escapeHtml(clube.OBS || '-')}
-                        </small>
-                    </td>
+                        <td>
+                            <small>
+                                ${escapeHtml(clube.CONTACTO || '-')}
+                            </small>
+                        </td>
 
 
-                    <td>
-
-                        <div class="actions">
-
-                            <button
-                                class="btn-secondary"
-                                onclick="
-                                    abrirModal(
-                                        '${escapeHtmlAttribute(ligaSelecionada)}',
-                                        ${index}
-                                    )
-                                "
-                            >
-                                ✏️ Editar
-                            </button>
+                        <td>
+                            <small>
+                                ${escapeHtml(clube.OBS || '-')}
+                            </small>
+                        </td>
 
 
-                            <button
-                                class="btn-info"
-                                onclick="
-                                    duplicarClube(
-                                        '${escapeHtmlAttribute(ligaSelecionada)}',
-                                        ${index}
-                                    )
-                                "
-                            >
-                                👯 Duplicar
-                            </button>
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="btn-secondary"
+                                    onclick="
+                                        abrirModal(
+                                            '${escapeHtmlAttribute(ligaSelecionada)}',
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    ✏️ Editar
+                                </button>
 
 
-                            <button
-                                class="btn-danger"
-                                onclick="
-                                    removerClube(
-                                        '${escapeHtmlAttribute(ligaSelecionada)}',
-                                        ${index}
-                                    )
-                                "
-                            >
-                                🗑️
-                            </button>
+                                <button
+                                    class="btn-info"
+                                    onclick="
+                                        duplicarClube(
+                                            '${escapeHtmlAttribute(ligaSelecionada)}',
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    👯 Duplicar
+                                </button>
 
-                        </div>
 
-                    </td>
+                                <button
+                                    class="btn-danger"
+                                    onclick="
+                                        removerClube(
+                                            '${escapeHtmlAttribute(ligaSelecionada)}',
+                                            ${index}
+                                        )
+                                    "
+                                >
+                                    🗑️
+                                </button>
 
-                </tr>
+                            </div>
 
-            `;
+                        </td>
 
-        });
+                    </tr>
+
+                `;
+
+            }
+        );
 
     }
 
@@ -2465,7 +3377,9 @@ function renderizarTabela() {
 
     document.getElementById(
         'tabContent'
-    ).innerHTML = html;
+    ).innerHTML =
+        html;
+
 }
 
 
@@ -2473,13 +3387,18 @@ function renderizarTabela() {
    PAGAMENTOS
 ========================================================= */
 
-function togglePagamento(liga, index) {
+async function togglePagamento(
+    liga,
+    index
+) {
 
     if (
         !dados[liga] ||
         !dados[liga][index]
     ) {
+
         return;
+
     }
 
 
@@ -2487,7 +3406,15 @@ function togglePagamento(liga, index) {
         !dados[liga][index].pago;
 
 
+    marcarNaoGuardado();
+
+
+    const estado =
+        dados[liga][index].pago;
+
+
     salvarDadosSilencioso();
+
 
     renderizarDashboard();
 
@@ -2497,14 +3424,11 @@ function togglePagamento(liga, index) {
 
 
     mostrarToast(
-
-        dados[liga][index].pago
-
+        estado
             ? '✅ Pagamento marcado como pago.'
-
             : '⚠️ Pagamento marcado como não pago.'
-
     );
+
 }
 
 
@@ -2512,13 +3436,18 @@ function togglePagamento(liga, index) {
    EDITAR
 ========================================================= */
 
-function abrirModal(liga, index) {
+function abrirModal(
+    liga,
+    index
+) {
 
     if (
         !dados[liga] ||
         !dados[liga][index]
     ) {
+
         return;
+
     }
 
 
@@ -2536,6 +3465,18 @@ function abrirModal(liga, index) {
         'modalClube'
     ).value =
         clube.CLUBES || '';
+
+
+    document.getElementById(
+        'modalConta'
+    ).value =
+        clube.CONTA || '';
+
+
+    document.getElementById(
+        'modalFuncao'
+    ).value =
+        clube.FUNÇÃO || 'MA';
 
 
     document.getElementById(
@@ -2569,22 +3510,34 @@ function abrirModal(liga, index) {
 
 
     document
-        .getElementById('modal')
-        .classList.add('active');
+        .getElementById(
+            'modal'
+        )
+        .classList.add(
+            'active'
+        );
+
 }
 
 
 function fecharModal() {
 
     document
-        .getElementById('modal')
-        .classList.remove('active');
+        .getElementById(
+            'modal'
+        )
+        .classList.remove(
+            'active'
+        );
 
-    edicaoAtiva = null;
+
+    edicaoAtiva =
+        null;
+
 }
 
 
-function guardarEdicao() {
+async function guardarEdicao() {
 
     if (!edicaoAtiva) {
         return;
@@ -2594,11 +3547,36 @@ function guardarEdicao() {
     const {
         liga,
         index
-    } = edicaoAtiva;
+    } =
+        edicaoAtiva;
+
+
+    if (
+        !dados[liga] ||
+        !dados[liga][index]
+    ) {
+
+        fecharModal();
+
+        return;
+
+    }
 
 
     const clube =
         dados[liga][index];
+
+
+    clube.CONTA =
+        document.getElementById(
+            'modalConta'
+        ).value.trim();
+
+
+    clube.FUNÇÃO =
+        document.getElementById(
+            'modalFuncao'
+        ).value.trim() || 'MA';
 
 
     clube.NIF =
@@ -2633,7 +3611,12 @@ function guardarEdicao() {
         ).value.trim();
 
 
-    salvarDadosSilencioso();
+    marcarNaoGuardado();
+
+
+    const sucesso =
+        await salvarDadosSilencioso();
+
 
     renderizarDashboard();
 
@@ -2643,9 +3626,22 @@ function guardarEdicao() {
 
     fecharModal();
 
-    mostrarToast(
-        '✅ Dados atualizados com sucesso.'
-    );
+
+    if (sucesso) {
+
+        mostrarToast(
+            '✅ Dados atualizados com sucesso.'
+        );
+
+    } else {
+
+        mostrarToast(
+            '⚠️ Alteração feita, mas não foi possível guardá-la.',
+            true
+        );
+
+    }
+
 }
 
 
@@ -2663,58 +3659,78 @@ function abrirModalNovoClube() {
 
     document.getElementById(
         'novoClubeName'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'novoClubeConta'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'novoClubeFuncao'
-    ).value = 'MA';
+    ).value =
+        'MA';
 
 
     document.getElementById(
         'novoClubeNIF'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'novoClubeIBAN'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'novoClubeValor'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'novoClubeContacto'
-    ).value = '';
+    ).value =
+        '';
 
 
     document.getElementById(
         'novoClubeObs'
-    ).value = '';
+    ).value =
+        '';
 
 
     document
         .getElementById(
             'modalNovoClube'
         )
-        .classList.add('active');
+        .classList.add(
+            'active'
+        );
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        document.getElementById(
-            'novoClubeName'
-        ).focus();
+            const input =
+                document.getElementById(
+                    'novoClubeName'
+                );
 
-    }, 100);
+
+            if (input) {
+                input.focus();
+            }
+
+        },
+        100
+    );
+
 }
 
 
@@ -2724,11 +3740,14 @@ function fecharModalNovoClube() {
         .getElementById(
             'modalNovoClube'
         )
-        .classList.remove('active');
+        .classList.remove(
+            'active'
+        );
+
 }
 
 
-function guardarNovoClube() {
+async function guardarNovoClube() {
 
     const nome =
         document.getElementById(
@@ -2739,10 +3758,12 @@ function guardarNovoClube() {
     if (!nome) {
 
         mostrarToast(
-            '❌ O nome do clube é obrigatório.'
+            '❌ O nome do clube é obrigatório.',
+            true
         );
 
         return;
+
     }
 
 
@@ -2753,13 +3774,17 @@ function guardarNovoClube() {
 
 
     if (!dados[liga]) {
-        dados[liga] = [];
+
+        dados[liga] =
+            [];
+
     }
 
 
     const novoClube = {
 
-        CLUBES: nome,
+        CLUBES:
+            nome,
 
         CONTA:
             document.getElementById(
@@ -2769,7 +3794,8 @@ function guardarNovoClube() {
         FUNÇÃO:
             document.getElementById(
                 'novoClubeFuncao'
-            ).value.trim() || 'MA',
+            ).value.trim() ||
+            'MA',
 
         NIF:
             document.getElementById(
@@ -2798,19 +3824,22 @@ function guardarNovoClube() {
                 'novoClubeObs'
             ).value.trim(),
 
-        pago: false
+        pago:
+            false
 
     };
 
 
-    dados[liga].push(novoClube);
+    dados[liga].push(
+        novoClube
+    );
 
 
-    ligaSelecionada = liga;
+    ligaSelecionada =
+        liga;
+
 
     criarTabs();
-
-    salvarDadosSilencioso();
 
     renderizarDashboard();
 
@@ -2818,12 +3847,32 @@ function guardarNovoClube() {
 
     atualizarStats();
 
+
     fecharModalNovoClube();
 
 
-    mostrarToast(
-        `✅ Clube "${nome}" adicionado à ${liga}.`
-    );
+    marcarNaoGuardado();
+
+
+    const sucesso =
+        await salvarDadosSilencioso();
+
+
+    if (sucesso) {
+
+        mostrarToast(
+            `✅ Clube "${nome}" adicionado à ${liga}.`
+        );
+
+    } else {
+
+        mostrarToast(
+            `⚠️ Clube "${nome}" adicionado, mas não foi possível guardar.`,
+            true
+        );
+
+    }
+
 }
 
 
@@ -2831,13 +3880,18 @@ function guardarNovoClube() {
    REMOVER
 ========================================================= */
 
-function removerClube(liga, index) {
+async function removerClube(
+    liga,
+    index
+) {
 
     if (
         !dados[liga] ||
         !dados[liga][index]
     ) {
+
         return;
+
     }
 
 
@@ -2856,10 +3910,11 @@ function removerClube(liga, index) {
     }
 
 
-    dados[liga].splice(index, 1);
+    dados[liga].splice(
+        index,
+        1
+    );
 
-
-    salvarDadosSilencioso();
 
     renderizarDashboard();
 
@@ -2868,9 +3923,28 @@ function removerClube(liga, index) {
     atualizarStats();
 
 
-    mostrarToast(
-        '🗑️ Clube removido com sucesso.'
-    );
+    marcarNaoGuardado();
+
+
+    const sucesso =
+        await salvarDadosSilencioso();
+
+
+    if (sucesso) {
+
+        mostrarToast(
+            '🗑️ Clube removido com sucesso.'
+        );
+
+    } else {
+
+        mostrarToast(
+            '⚠️ Clube removido, mas não foi possível guardar a alteração.',
+            true
+        );
+
+    }
+
 }
 
 
@@ -2878,13 +3952,18 @@ function removerClube(liga, index) {
    DUPLICAR
 ========================================================= */
 
-function duplicarClube(liga, index) {
+function duplicarClube(
+    liga,
+    index
+) {
 
     if (
         !dados[liga] ||
         !dados[liga][index]
     ) {
+
         return;
+
     }
 
 
@@ -2895,7 +3974,8 @@ function duplicarClube(liga, index) {
     document.getElementById(
         'duplicarClubeName'
     ).value =
-        original.CLUBES + ' (2)';
+        original.CLUBES +
+        ' (2)';
 
 
     document.getElementById(
@@ -2944,7 +4024,10 @@ function duplicarClube(liga, index) {
         .getElementById(
             'modalDuplicarClube'
         )
-        .classList.add('active');
+        .classList.add(
+            'active'
+        );
+
 }
 
 
@@ -2954,13 +4037,18 @@ function fecharModalDuplicarClube() {
         .getElementById(
             'modalDuplicarClube'
         )
-        .classList.remove('active');
+        .classList.remove(
+            'active'
+        );
 
-    clubeDuplicacao = null;
+
+    clubeDuplicacao =
+        null;
+
 }
 
 
-function guardarDuplicacao() {
+async function guardarDuplicacao() {
 
     if (!clubeDuplicacao) {
         return;
@@ -2976,17 +4064,32 @@ function guardarDuplicacao() {
     if (!nome) {
 
         mostrarToast(
-            '❌ O nome do clube é obrigatório.'
+            '❌ O nome do clube é obrigatório.',
+            true
         );
 
         return;
+
     }
 
 
     const {
         liga,
         index
-    } = clubeDuplicacao;
+    } =
+        clubeDuplicacao;
+
+
+    if (
+        !dados[liga] ||
+        !dados[liga][index]
+    ) {
+
+        fecharModalDuplicarClube();
+
+        return;
+
+    }
 
 
     const original =
@@ -2995,7 +4098,8 @@ function guardarDuplicacao() {
 
     const novoClube = {
 
-        CLUBES: nome,
+        CLUBES:
+            nome,
 
         CONTA:
             document.getElementById(
@@ -3003,7 +4107,8 @@ function guardarDuplicacao() {
             ).value.trim(),
 
         FUNÇÃO:
-            original.FUNÇÃO || 'MA',
+            original.FUNÇÃO ||
+            'MA',
 
         NIF:
             document.getElementById(
@@ -3032,15 +4137,16 @@ function guardarDuplicacao() {
                 'duplicarClubeObs'
             ).value.trim(),
 
-        pago: false
+        pago:
+            false
 
     };
 
 
-    dados[liga].push(novoClube);
+    dados[liga].push(
+        novoClube
+    );
 
-
-    salvarDadosSilencioso();
 
     renderizarDashboard();
 
@@ -3048,12 +4154,32 @@ function guardarDuplicacao() {
 
     atualizarStats();
 
+
     fecharModalDuplicarClube();
 
 
-    mostrarToast(
-        `👯 Clube "${nome}" duplicado com sucesso.`
-    );
+    marcarNaoGuardado();
+
+
+    const sucesso =
+        await salvarDadosSilencioso();
+
+
+    if (sucesso) {
+
+        mostrarToast(
+            `👯 Clube "${nome}" duplicado com sucesso.`
+        );
+
+    } else {
+
+        mostrarToast(
+            `⚠️ Clube "${nome}" duplicado, mas não foi possível guardar.`,
+            true
+        );
+
+    }
+
 }
 
 
@@ -3064,37 +4190,60 @@ function guardarDuplicacao() {
 function atualizarStats() {
 
     const clubes =
-        dados[ligaSelecionada] || [];
+        Array.isArray(
+            dados[ligaSelecionada]
+        )
+            ? dados[ligaSelecionada]
+            : [];
 
 
     const pagos =
         clubes.filter(
-            clube => clube.pago
+            clube => clube.pago === true
         ).length;
 
 
     const naoPagos =
         clubes.filter(
-            clube => !clube.pago
+            clube => clube.pago !== true
         ).length;
 
 
-    document.getElementById(
-        'totalClubes'
-    ).textContent =
-        clubes.length;
+    const total =
+        document.getElementById(
+            'totalClubes'
+        );
 
 
-    document.getElementById(
-        'paidCount'
-    ).textContent =
-        pagos;
+    const paid =
+        document.getElementById(
+            'paidCount'
+        );
 
 
-    document.getElementById(
-        'unpaidCount'
-    ).textContent =
-        naoPagos;
+    const unpaid =
+        document.getElementById(
+            'unpaidCount'
+        );
+
+
+    if (total) {
+        total.textContent =
+            clubes.length;
+    }
+
+
+    if (paid) {
+        paid.textContent =
+            pagos;
+    }
+
+
+    if (unpaid) {
+        unpaid.textContent =
+            naoPagos;
+    }
+
 }
 
 
@@ -3102,14 +4251,9 @@ function atualizarStats() {
    EXPORTAR JSON
 ========================================================= */
 
-function exportarDados() {
+async function exportarDados() {
 
-    /*
-     * Antes de exportar garantimos
-     * que a versão atual está guardada.
-     */
-
-    salvarDadosSilencioso();
+    await salvarDadosSilencioso();
 
 
     const json =
@@ -3124,20 +4268,27 @@ function exportarDados() {
         new Blob(
             [json],
             {
-                type: 'application/json'
+                type:
+                    'application/json;charset=utf-8'
             }
         );
 
 
     const url =
-        URL.createObjectURL(blob);
+        URL.createObjectURL(
+            blob
+        );
 
 
     const link =
-        document.createElement('a');
+        document.createElement(
+            'a'
+        );
 
 
-    link.href = url;
+    link.href =
+        url;
+
 
     link.download =
         `clubes_futebol_${
@@ -3147,19 +4298,33 @@ function exportarDados() {
         }.json`;
 
 
-    document.body.appendChild(link);
+    document.body.appendChild(
+        link
+    );
+
 
     link.click();
+
 
     link.remove();
 
 
-    URL.revokeObjectURL(url);
+    setTimeout(
+        () => {
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },
+        100
+    );
 
 
     mostrarToast(
         '📥 JSON exportado com sucesso.'
     );
+
 }
 
 
@@ -3172,10 +4337,13 @@ function importarDados() {
     document.getElementById(
         'importFile'
     ).click();
+
 }
 
 
-function processarImportacao(event) {
+async function processarImportacao(
+    event
+) {
 
     const ficheiro =
         event.target.files[0];
@@ -3190,100 +4358,133 @@ function processarImportacao(event) {
         new FileReader();
 
 
-    reader.onload = function(e) {
+    reader.onload =
+        async function(e) {
 
-        try {
+            try {
 
-            const dadosImportados =
-                JSON.parse(
-                    e.target.result
+                const dadosImportados =
+                    JSON.parse(
+                        e.target.result
+                    );
+
+
+                if (
+                    !dadosImportados ||
+                    typeof dadosImportados !==
+                        'object' ||
+                    Array.isArray(
+                        dadosImportados
+                    )
+                ) {
+
+                    throw new Error(
+                        'Formato inválido.'
+                    );
+
+                }
+
+
+                dados =
+                    normalizarDadosGuardados(
+                        dadosImportados
+                    );
+
+
+                /*
+                 * Voltar para a primeira liga
+                 * caso a atual já não exista.
+                 */
+
+                if (
+                    !dados[
+                        ligaSelecionada
+                    ]
+                ) {
+
+                    ligaSelecionada =
+                        Object.keys(
+                            dados
+                        )[0] ||
+                        '1 Liga';
+
+                }
+
+
+                criarTabs();
+
+                renderizarDashboard();
+
+                renderizarTabela();
+
+                atualizarStats();
+
+
+                marcarNaoGuardado();
+
+
+                const sucesso =
+                    await salvarDadosSilencioso();
+
+
+                if (sucesso) {
+
+                    mostrarToast(
+                        '📤 Dados importados e guardados com sucesso.'
+                    );
+
+                } else {
+
+                    mostrarToast(
+                        '⚠️ Dados importados, mas não foi possível guardá-los.',
+                        true
+                    );
+
+                }
+
+
+            } catch (erro) {
+
+                console.error(
+                    '❌ Erro na importação:',
+                    erro
                 );
 
 
-            if (
-                !dadosImportados ||
-                typeof dadosImportados !== 'object'
-            ) {
-
-                throw new Error(
-                    'Formato inválido.'
+                mostrarToast(
+                    '❌ O ficheiro JSON é inválido.',
+                    true
                 );
+
             }
 
 
-            Object.keys(dadosLigas).forEach(
-                liga => {
+            event.target.value =
+                '';
 
-                    if (
-                        !Array.isArray(
-                            dadosImportados[liga]
-                        )
-                    ) {
-
-                        dadosImportados[liga] =
-                            [];
-
-                    }
-
-                }
-            );
+        };
 
 
-            dados = {};
-
-
-            Object.keys(dadosLigas).forEach(
-                liga => {
-
-                    dados[liga] =
-                        (
-                            dadosImportados[liga] ||
-                            []
-                        ).map(
-                            normalizarClube
-                        );
-
-                }
-            );
-
-
-            salvarDadosSilencioso();
-
-            criarTabs();
-
-            renderizarDashboard();
-
-            renderizarTabela();
-
-            atualizarStats();
-
+    reader.onerror =
+        function() {
 
             mostrarToast(
-                '📤 Dados importados com sucesso.'
+                '❌ Não foi possível ler o ficheiro.',
+                true
             );
 
 
-        } catch (erro) {
+            event.target.value =
+                '';
 
-            console.error(
-                erro
-            );
-
-            mostrarToast(
-                '❌ O ficheiro JSON é inválido.'
-            );
-
-        }
-
-        event.target.value = '';
-
-    };
+        };
 
 
     reader.readAsText(
         ficheiro,
         'UTF-8'
     );
+
 }
 
 
@@ -3291,21 +4492,24 @@ function processarImportacao(event) {
    EXPORTAR EXCEL
 ========================================================= */
 
-function exportarExcel() {
+async function exportarExcel() {
 
     if (
-        typeof XLSX === 'undefined'
+        typeof XLSX ===
+        'undefined'
     ) {
 
         mostrarToast(
-            '❌ A biblioteca Excel não foi carregada.'
+            '❌ A biblioteca Excel não foi carregada. Verifica a ligação à internet.',
+            true
         );
 
         return;
+
     }
 
 
-    salvarDadosSilencioso();
+    await salvarDadosSilencioso();
 
 
     const workbook =
@@ -3331,40 +4535,48 @@ function exportarExcel() {
 
     Object.values(
         totalizacoes
-    ).forEach(t => {
+    ).forEach(
+        t => {
 
-        totalGeral += t.total;
+            totalGeral +=
+                t.total;
 
-        pagosGeral += t.pagos;
+            pagosGeral +=
+                t.pagos;
 
-        naoPagosGeral += t.naoPagos;
+            naoPagosGeral +=
+                t.naoPagos;
 
-        valorTotalGeral += t.valorTotal;
+            valorTotalGeral +=
+                t.valorTotal;
 
-        valorPagoGeral += t.valorPago;
+            valorPagoGeral +=
+                t.valorPago;
 
-        valorPendenteGeral += t.valorPendente;
+            valorPendenteGeral +=
+                t.valorPendente;
 
-    });
+        }
+    );
 
 
     const percentagem =
         totalGeral > 0
             ? Math.round(
-                (pagosGeral / totalGeral) * 100
+                (
+                    pagosGeral /
+                    totalGeral
+                ) * 100
             )
             : 0;
 
 
-    /* =========================
-       RESUMO
-    ========================= */
+    /* RESUMO */
 
     const resumoData = [
 
         [
             'RESUMO GERAL',
-            '',
             '',
             '',
             '',
@@ -3502,9 +4714,7 @@ function exportarExcel() {
     );
 
 
-    /* =========================
-       CADA LIGA
-    ========================= */
+    /* CADA LIGA */
 
     Object.entries(
         dados
@@ -3534,51 +4744,61 @@ function exportarExcel() {
             ];
 
 
-            clubes.forEach(clube => {
+            clubes.forEach(
+                clube => {
 
-                sheetData.push([
+                    sheetData.push([
 
-                    clube.CLUBES,
+                        clube.CLUBES,
 
-                    clube.CONTA || '',
+                        clube.CONTA || '',
 
-                    clube.FUNÇÃO || '',
+                        clube.FUNÇÃO || '',
 
-                    clube.NIF || '',
+                        clube.NIF || '',
 
-                    clube.IBAN || '',
+                        clube.IBAN || '',
 
-                    clube.pago
-                        ? 'Sim'
-                        : 'Não',
+                        clube.pago
+                            ? 'Sim'
+                            : 'Não',
 
-                    Number(clube.valor) || 0,
+                        Number(
+                            clube.valor
+                        ) || 0,
 
-                    clube.CONTACTO || '',
+                        clube.CONTACTO || '',
 
-                    clube.OBS || ''
+                        clube.OBS || ''
 
-                ]);
+                    ]);
 
-            });
+                }
+            );
 
 
             const totalValor =
                 clubes.reduce(
                     (sum, clube) =>
                         sum +
-                        (Number(clube.valor) || 0),
+                        (
+                            Number(
+                                clube.valor
+                            ) || 0
+                        ),
                     0
                 );
 
 
             const totalPagos =
                 clubes.filter(
-                    clube => clube.pago
+                    clube =>
+                        clube.pago === true
                 ).length;
 
 
             sheetData.push([]);
+
 
             sheetData.push([
 
@@ -3637,7 +4857,10 @@ function exportarExcel() {
             XLSX.utils.book_append_sheet(
                 workbook,
                 sheet,
-                liga.substring(0, 31)
+                liga.substring(
+                    0,
+                    31
+                )
             );
 
         }
@@ -3661,6 +4884,7 @@ function exportarExcel() {
     mostrarToast(
         '📊 Excel exportado com sucesso.'
     );
+
 }
 
 
@@ -3668,7 +4892,7 @@ function exportarExcel() {
    LIMPAR / REPOR
 ========================================================= */
 
-function limparDados() {
+async function limparDados() {
 
     const confirmar =
         confirm(
@@ -3688,7 +4912,27 @@ function limparDados() {
         );
 
 
-    salvarDadosSilencioso();
+    ligaSelecionada =
+        '1 Liga';
+
+
+    filtroAtivo =
+        '';
+
+
+    const pesquisa =
+        document.getElementById(
+            'searchInput'
+        );
+
+
+    if (pesquisa) {
+
+        pesquisa.value =
+            '';
+
+    }
+
 
     criarTabs();
 
@@ -3699,9 +4943,28 @@ function limparDados() {
     atualizarStats();
 
 
-    mostrarToast(
-        '🗑️ Dados repostos para os valores iniciais.'
-    );
+    marcarNaoGuardado();
+
+
+    const sucesso =
+        await salvarDadosSilencioso();
+
+
+    if (sucesso) {
+
+        mostrarToast(
+            '🗑️ Dados repostos para os valores iniciais.'
+        );
+
+    } else {
+
+        mostrarToast(
+            '⚠️ Dados repostos, mas não foi possível guardá-los.',
+            true
+        );
+
+    }
+
 }
 
 
@@ -3715,7 +4978,9 @@ function escapeHtml(valor) {
         valor === null ||
         valor === undefined
     ) {
+
         return '';
+
     }
 
 
@@ -3745,6 +5010,7 @@ function escapeHtml(valor) {
             /'/g,
             '&#039;'
         );
+
 }
 
 
@@ -3763,6 +5029,7 @@ function escapeHtmlAttribute(valor) {
             /'/g,
             "\\'"
         );
+
 }
 
 
@@ -3770,14 +5037,24 @@ function escapeHtmlAttribute(valor) {
    TOAST
 ========================================================= */
 
-function mostrarToast(mensagem) {
+function mostrarToast(
+    mensagem,
+    erro = false
+) {
 
     const toast =
-        document.createElement('div');
+        document.createElement(
+            'div'
+        );
 
 
     toast.className =
-        'toast';
+        'toast' +
+        (
+            erro
+                ? ' error'
+                : ''
+        );
 
 
     toast.textContent =
@@ -3792,11 +5069,18 @@ function mostrarToast(mensagem) {
     setTimeout(
         () => {
 
-            toast.remove();
+            if (
+                toast.parentNode
+            ) {
+
+                toast.remove();
+
+            }
 
         },
-        3000
+        3500
     );
+
 }
 
 
@@ -3806,25 +5090,21 @@ function mostrarToast(mensagem) {
 
 document.addEventListener(
     'DOMContentLoaded',
-    () => {
+    async () => {
 
         /*
-         * Carregar dados primeiro
+         * Carregar dados antes de
+         * construir a interface.
          */
 
-        carregarDados();
+        await carregarDados();
 
 
         /*
-         * Criar separadores
+         * Construir interface.
          */
 
         criarTabs();
-
-
-        /*
-         * Renderizar interface
-         */
 
         renderizarDashboard();
 
@@ -3834,32 +5114,41 @@ document.addEventListener(
 
 
         /*
-         * Pesquisa
+         * Pesquisa.
          */
 
-        document
-            .getElementById(
+        const searchInput =
+            document.getElementById(
                 'searchInput'
-            )
-            .addEventListener(
+            );
+
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
                 'input',
                 event => {
 
                     filtroAtivo =
                         event.target.value;
 
+
                     renderizarTabela();
 
                 }
             );
 
+        }
+
 
         /*
-         * Fechar modal editar
+         * Modal editar.
          */
 
         document
-            .getElementById('modal')
+            .getElementById(
+                'modal'
+            )
             .addEventListener(
                 'click',
                 event => {
@@ -3878,7 +5167,7 @@ document.addEventListener(
 
 
         /*
-         * Fechar modal novo clube
+         * Modal novo clube.
          */
 
         document
@@ -3903,7 +5192,7 @@ document.addEventListener(
 
 
         /*
-         * Fechar modal duplicar
+         * Modal duplicar.
          */
 
         document
@@ -3928,7 +5217,7 @@ document.addEventListener(
 
 
         /*
-         * Importar JSON
+         * Importar JSON.
          */
 
         document
@@ -3942,7 +5231,7 @@ document.addEventListener(
 
 
         /*
-         * ESC fecha modais
+         * ESC fecha todos os modais.
          */
 
         document.addEventListener(
@@ -3950,7 +5239,8 @@ document.addEventListener(
             event => {
 
                 if (
-                    event.key === 'Escape'
+                    event.key ===
+                    'Escape'
                 ) {
 
                     fecharModal();
@@ -3966,12 +5256,42 @@ document.addEventListener(
 
 
         /*
-         * Guardar antes de sair
+         * Guardar quando a página
+         * fica escondida.
+         */
+
+        document.addEventListener(
+            'visibilitychange',
+            () => {
+
+                if (
+                    document.visibilityState ===
+                    'hidden'
+                ) {
+
+                    salvarDadosSilencioso();
+
+                }
+
+            }
+        );
+
+
+        /*
+         * Guardar antes de sair.
          */
 
         window.addEventListener(
             'beforeunload',
             () => {
+
+                /*
+                 * IndexedDB não permite esperar
+                 * pelo resultado do beforeunload.
+                 *
+                 * No entanto, todas as alterações
+                 * já são guardadas imediatamente.
+                 */
 
                 salvarDadosSilencioso();
 
@@ -3980,9 +5300,9 @@ document.addEventListener(
 
 
         /*
-         * Backup automático
+         * Autosave.
          *
-         * NÃO mostra Toast.
+         * 30 segundos.
          */
 
         setInterval(
@@ -3992,6 +5312,24 @@ document.addEventListener(
 
             },
             30000
+        );
+
+
+        console.log(
+            '======================================'
+        );
+
+        console.log(
+            '⚽ Gestor de Clubes de Futebol'
+        );
+
+        console.log(
+            'Armazenamento:',
+            armazenamentoAtual
+        );
+
+        console.log(
+            '======================================'
         );
 
     }
