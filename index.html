@@ -126,6 +126,19 @@
             color: white;
         }
 
+        .btn-info {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 1px solid #90caf9;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .btn-info:hover {
+            background: #90caf9;
+            color: white;
+        }
+
         .tabs {
             display: flex;
             border-bottom: 2px solid #e5e5e5;
@@ -652,6 +665,39 @@
         </div>
     </div>
 
+    <div class="modal" id="modalDuplicarClube">
+        <div class="modal-content">
+            <h2>👯 Duplicar Clube</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Editae os dados do novo clube clonado:</p>
+            
+            <label>Nome do Clube (novo) *</label>
+            <input type="text" id="duplicarClubeName" placeholder="ex: Sporting SAD">
+            
+            <label>Conta Interna</label>
+            <input type="text" id="duplicarClubeConta" placeholder="ex: 123456">
+            
+            <label>NIF (Contribuinte)</label>
+            <input type="text" id="duplicarClibeNIF" placeholder="ex: 500000000">
+            
+            <label>IBAN/Conta Bancária</label>
+            <input type="text" id="duplicarClibeIBAN" placeholder="ex: PT50 0000 0000 0000 0000 0000 0">
+            
+            <label>Valor (€)</label>
+            <input type="number" id="duplicarClibeValor" step="0.01" placeholder="0,00">
+            
+            <label>Contacto</label>
+            <input type="text" id="duplicarClibeContacto" placeholder="email ou telefone">
+            
+            <label>Observações</label>
+            <input type="text" id="duplicarClibeObs" placeholder="notas adicionais">
+            
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModalDuplicarClube()">Cancelar</button>
+                <button class="btn-primary" onclick="guardarDuplicacao()">Duplicar Clube</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
     <script>
         // Dados carregados
@@ -910,6 +956,9 @@
                                 <button class="btn-secondary" onclick="abrirModal('${ligaSelecionada}', ${clubes.indexOf(clube)})">
                                     ✏️ Editar
                                 </button>
+                                <button class="btn-info" onclick="duplicarClube('${ligaSelecionada}', ${clubes.indexOf(clube)})">
+                                    👯 Duplicar
+                                </button>
                                 <button class="btn-danger" onclick="removerClube('${ligaSelecionada}', ${clubes.indexOf(clube)})">
                                     🗑️
                                 </button>
@@ -1004,6 +1053,64 @@
                 atualizarStats();
                 mostrarToast(`🗑️ Clube removido`);
             }
+        }
+
+        function duplicarClube(liga, index) {
+            const clubeOriginal = dados[liga][index];
+            
+            // Preencher modal com dados do clube original
+            document.getElementById('duplicarClubeName').value = clubeOriginal.CLUBES + ' (2)';
+            document.getElementById('duplicarClubeConta').value = clubeOriginal.CONTA || '';
+            document.getElementById('duplicarClibeNIF').value = clubeOriginal.NIF || '';
+            document.getElementById('duplicarClibeIBAN').value = clubeOriginal.IBAN || '';
+            document.getElementById('duplicarClibeValor').value = clubeOriginal.valor || '';
+            document.getElementById('duplicarClibeContacto').value = clubeOriginal.CONTACTO || '';
+            document.getElementById('duplicarClibeObs').value = clubeOriginal.OBS || '';
+            
+            // Guardar referência do clube original
+            window.clubeDuplicacao = {
+                liga: liga,
+                index: index
+            };
+            
+            document.getElementById('modalDuplicarClube').classList.add('active');
+        }
+
+        function fecharModalDuplicarClube() {
+            document.getElementById('modalDuplicarClube').classList.remove('active');
+            window.clubeDuplicacao = null;
+        }
+
+        function guardarDuplicacao() {
+            if (!window.clubeDuplicacao) return;
+            
+            const nome = document.getElementById('duplicarClubeName').value.trim();
+            if (!nome) {
+                mostrarToast('❌ Nome do clube é obrigatório');
+                return;
+            }
+
+            const { liga, index } = window.clubeDuplicacao;
+            const clubeOriginal = dados[liga][index];
+            
+            const novoClube = {
+                CLUBES: nome,
+                CONTA: document.getElementById('duplicarClubeConta').value || clubeOriginal.CONTA || '',
+                FUNÇÃO: clubeOriginal.FUNÇÃO || 'MA',
+                NIF: document.getElementById('duplicarClibeNIF').value || '',
+                IBAN: document.getElementById('duplicarClibeIBAN').value || '',
+                valor: parseFloat(document.getElementById('duplicarClibeValor').value) || 0,
+                CONTACTO: document.getElementById('duplicarClibeContacto').value || '',
+                OBS: document.getElementById('duplicarClibeObs').value || '',
+                pago: false
+            };
+
+            dados[liga].push(novoClube);
+            renderizarDashboard();
+            renderizarTabela();
+            atualizarStats();
+            fecharModalDuplicarClube();
+            mostrarToast(`👯 Clube "${nome}" duplicado com sucesso`);
         }
 
         function guardarEdicao() {
@@ -1177,6 +1284,12 @@
             document.getElementById('modalNovoClube').addEventListener('click', (e) => {
                 if (e.target.id === 'modalNovoClube') {
                     fecharModalNovoClube();
+                }
+            });
+
+            document.getElementById('modalDuplicarClube').addEventListener('click', (e) => {
+                if (e.target.id === 'modalDuplicarClube') {
+                    fecharModalDuplicarClube();
                 }
             });
         });
