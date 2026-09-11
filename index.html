@@ -977,6 +977,7 @@
             renderizarDashboard();
             renderizarTabela();
             atualizarStats();
+            guardarDados();
             mostrarToast('Status atualizado');
         }
 
@@ -1040,6 +1041,7 @@
             renderizarDashboard();
             renderizarTabela();
             atualizarStats();
+            guardarDados();
             fecharModalNovoClube();
             mostrarToast(`✅ Clube "${nome}" adicionado à ${liga}`);
         }
@@ -1051,6 +1053,7 @@
                 renderizarDashboard();
                 renderizarTabela();
                 atualizarStats();
+                guardarDados();
                 mostrarToast(`🗑️ Clube removido`);
             }
         }
@@ -1109,6 +1112,7 @@
             renderizarDashboard();
             renderizarTabela();
             atualizarStats();
+            guardarDados();
             fecharModalDuplicarClube();
             mostrarToast(`👯 Clube "${nome}" duplicado com sucesso`);
         }
@@ -1127,6 +1131,7 @@
             renderizarDashboard();
             renderizarTabela();
             atualizarStats();
+            guardarDados();
             fecharModal();
             mostrarToast('Dados atualizados com sucesso');
         }
@@ -1237,6 +1242,7 @@
             if (confirm('Tem a certeza que quer limpar todos os dados? Esta ação não pode ser desfeita.')) {
                 localStorage.removeItem('futebolDados');
                 dados = JSON.parse(JSON.stringify(dadosLigas));
+                guardarDados();
                 renderizarDashboard();
                 renderizarTabela();
                 atualizarStats();
