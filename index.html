@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Clubes de Futebol</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5d4a 100%);
+            color: #1f1f1f;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f4c3a 0%, #1a5d4a 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            padding: 20px 30px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #e5e5e5;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #0f4c3a;
+            box-shadow: 0 0 0 3px rgba(15, 76, 58, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #0f4c3a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0a3a2a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15, 76, 58, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e8e8e8;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d8d8d8;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e5e5;
+            background: #f9f9f9;
+            padding: 0 30px;
+        }
+
+        .tab {
+            padding: 16px 0;
+            margin: 0 20px;
+            border: none;
+            background: none;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .tab:hover {
+            color: #333;
+        }
+
+        .tab.active {
+            color: #0f4c3a;
+            border-bottom: 3px solid #0f4c3a;
+            margin-bottom: -2px;
+        }
+
+        .content {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background: #f0f0f0;
+            border-bottom: 2px solid #d0d0d0;
+        }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .clube-name {
+            font-weight: 500;
+            color: #0f4c3a;
+            min-width: 150px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="checkbox"] {
+            font-family: inherit;
+            font-size: inherit;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            padding: 6px 8px;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #0f4c3a;
+            box-shadow: 0 0 0 2px rgba(15, 76, 58, 0.1);
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #0f4c3a;
+        }
+
+        .status-pagamento {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-pago {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-nao-pago {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-pendente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .footer {
+            background: #f9f9f9;
+            padding: 20px 30px;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-number {
+            font-weight: 600;
+            color: #0f4c3a;
+            font-size: 16px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0f4c3a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .no-data p {
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .toolbar {
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .tabs {
+                padding: 0 20px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #0f4c3a;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .modal-content input {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚽ Gestor de Clubes de Futebol</h1>
+            <p>Controlo de pagamentos e dados das três ligas</p>
+        </div>
+
+        <div class="toolbar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar por nome do clube...">
+            </div>
+            <div class="button-group">
+                <button class="btn-secondary" onclick="exportarDados()">📥 Exportar</button>
+                <button class="btn-secondary" onclick="limparDados()">🗑️ Limpar Dados</button>
+                <button class="btn-primary" onclick="guardarDados()">💾 Guardar</button>
+            </div>
+        </div>
+
+        <div class="tabs" id="tabsContainer"></div>
+
+        <div class="content">
+            <div id="tabContent"></div>
+        </div>
+
+        <div class="footer">
+            <div class="stats">
+                <div class="stat-item">
+                    Clubes: <span class="stat-number" id="totalClubes">0</span>
+                </div>
+                <div class="stat-item">
+                    Pagos: <span class="stat-number" id="paidCount">0</span>
+                </div>
+                <div class="stat-item">
+                    Não Pagos: <span class="stat-number" id="unpaidCount">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2>Editar Dados</h2>
+            <label>Clube</label>
+            <input type="text" id="modalClube" readonly>
+            
+            <label>NIF (Contribuinte)</label>
+            <input type="text" id="modalNIF">
+            
+            <label>IBAN/Conta Bancária</label>
+            <input type="text" id="modalIBAN">
+            
+            <label>Valor (€)</label>
+            <input type="number" id="modalValor" step="0.01">
+            
+            <label>Observações</label>
+            <input type="text" id="modalObs">
+            
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-primary" onclick="guardarEdicao()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados carregados
+        const dadosLigas = {
+            '1 Liga': [
+                { CLUBES: 'BENFICA', CONTA: '5649', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'FC PORTO', CONTA: '91747', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: 'DEL. PORTO TRATA', CONTACTO: '', pago: false },
+                { CLUBES: 'SPORTING', CONTA: '422775', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'BRAGA', CONTA: '93667', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'FAMALICÃO', CONTA: '95253', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'GIL VICENTE', CONTA: '254401', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'financeiro@gilvicentefc.pt', pago: false },
+                { CLUBES: 'RIO AVE', CONTA: '304209', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'V. GUIMARÃES', CONTA: '95949', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'ESTORIL PRAIA', CONTA: '90296', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'AROUCA', CONTA: '92210', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'FC Alverca', CONTA: '402088', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'bernardomota.alverca@gmail.com', pago: false },
+                { CLUBES: 'AROUCA SDUQ', CONTA: '403728', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcarouca.pt', pago: false },
+            ],
+            '2 Liga': [
+                { CLUBES: 'AC. VICEU', CONTA: '246712', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@academicodeviseu.pt', pago: false },
+                { CLUBES: 'BENFICA B', CONTA: '5649', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'FEIRENSE', CONTA: '92201', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'secretaria@cdfeirense.pt', pago: false },
+                { CLUBES: 'FEIRENSE SAD', CONTA: '96902', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'LEIXÕES', CONTA: '94071', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@leixoessc.pt', pago: false },
+                { CLUBES: 'MAFRA', CONTA: '95252', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'financeiro@cdmafra.com', pago: false },
+                { CLUBES: 'PENAFIEL', CONTA: '92209', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcpenafiel.pt', pago: false },
+                { CLUBES: 'PENAFIEL SAD', CONTA: '400346', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcpenafiel.pt', pago: false },
+                { CLUBES: 'FC PORTO B', CONTA: '91747', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'DEL. PORTO', pago: false },
+                { CLUBES: 'FARENSE', CONTA: '94061', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'secretaria@scfarense.pt', pago: false },
+                { CLUBES: 'MARÍTIMO', CONTA: '92239', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@csmaritimo.pt', pago: false },
+                { CLUBES: 'PAÇOS FERREIRA', CONTA: '91979', FUNÇÃO: 'MA', NIF: '', IBAN: '', valor: 0, OBS: '', CONTACTO: 'geral@fcpf.pt', pago: false },
+            ],
+            'Liga 3': [
+                { CLUBES: 'VARZIM', CONTA: '335883', FUNÇÃO: 'MA', NIF: '513610456', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'S. João Ver', CONTA: '403149', FUNÇÃO: 'MA', NIF: '515471097', IBAN: '', valor: 0, OBS: '', CONTACTO: 'marketingecomunicacao@scsjversad.pt', pago: false },
+                { CLUBES: 'AD Sanjoanense', CONTA: '304208', FUNÇÃO: 'MA', NIF: '514745827', IBAN: '', valor: 0, OBS: '', CONTACTO: 'futebolsad@ads.pt', pago: false },
+                { CLUBES: 'FAFE', CONTA: '402976', FUNÇÃO: 'MA', NIF: '501659943', IBAN: '', valor: 0, OBS: '', CONTACTO: 'adfafe@adfafe.pt', pago: false },
+                { CLUBES: 'BRAGA B', CONTA: '93667', FUNÇÃO: 'MA', NIF: '504205498', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'TROFENSE', CONTA: '94065', FUNÇÃO: 'MA', NIF: '510687628', IBAN: '', valor: 0, OBS: '', CONTACTO: '', pago: false },
+                { CLUBES: 'Amarante FC', CONTA: '309581', FUNÇÃO: 'MA', NIF: '502089415', IBAN: '', valor: 0, OBS: '', CONTACTO: 'amarantfclube@sapo.pt', pago: false },
+            ]
+        };
+
+        let ligaSelecionada = '1 Liga';
+        let filtroAtivo = '';
+        let dados = {};
+        let edicaoAtiva = null;
+
+        function inicializar() {
+            // Carregar dados do localStorage
+            carregarDados();
+            
+            // Renderizar abas
+            const tabsContainer = document.getElementById('tabsContainer');
+            Object.keys(dadosLigas).forEach((liga, index) => {
+                const tab = document.createElement('button');
+                tab.className = 'tab' + (index === 0 ? ' active' : '');
+                tab.textContent = liga;
+                tab.onclick = () => mudarLiga(liga);
+                tabsContainer.appendChild(tab);
+            });
+
+            // Renderizar conteúdo inicial
+            renderizarTabela();
+            atualizarStats();
+        }
+
+        function carregarDados() {
+            const saved = localStorage.getItem('futebolDados');
+            if (saved) {
+                dados = JSON.parse(saved);
+                // Mesclar com dados iniciais (para adicionar novos clubes se houver)
+                Object.keys(dadosLigas).forEach(liga => {
+                    if (!dados[liga]) {
+                        dados[liga] = dadosLigas[liga];
+                    } else {
+                        // Garantir que todos os campos existem
+                        dados[liga].forEach(clube => {
+                            if (!clube.NIF) clube.NIF = '';
+                            if (!clube.IBAN) clube.IBAN = '';
+                            if (clube.valor === undefined) clube.valor = 0;
+                            if (!clube.pago) clube.pago = false;
+                        });
+                    }
+                });
+            } else {
+                dados = JSON.parse(JSON.stringify(dadosLigas));
+            }
+        }
+
+        function mudarLiga(liga) {
+            ligaSelecionada = liga;
+            
+            // Atualizar abas ativas
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Renderizar tabela
+            renderizarTabela();
+            atualizarStats();
+        }
+
+        function renderizarTabela() {
+            const clubes = dados[ligaSelecionada] || [];
+            const filtrados = filtroAtivo 
+                ? clubes.filter(c => c.CLUBES.toLowerCase().includes(filtroAtivo.toLowerCase()))
+                : clubes;
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>✓ Pago</th>
+                            <th>Clube</th>
+                            <th>Conta</th>
+                            <th>NIF</th>
+                            <th>IBAN</th>
+                            <th>Valor (€)</th>
+                            <th>Contacto</th>
+                            <th>Obs</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            if (filtrados.length === 0) {
+                html += `<tr><td colspan="9" class="no-data"><p>Nenhum clube encontrado</p></td></tr>`;
+            } else {
+                filtrados.forEach((clube, index) => {
+                    const statusBadge = clube.pago 
+                        ? '<span class="status-badge status-pago">Pago</span>'
+                        : '<span class="status-badge status-nao-pago">Não Pago</span>';
+                    
+                    html += `
+                        <tr>
+                            <td class="status-pagamento">
+                                <input type="checkbox" ${clube.pago ? 'checked' : ''} 
+                                       onchange="togglePagamento('${ligaSelecionada}', ${clubes.indexOf(clube)})">
+                            </td>
+                            <td class="clube-name">${clube.CLUBES}</td>
+                            <td>${clube.CONTA || '-'}</td>
+                            <td><strong>${clube.NIF || '-'}</strong></td>
+                            <td><small>${clube.IBAN || '-'}</small></td>
+                            <td>${clube.valor > 0 ? clube.valor.toFixed(2) + '€' : '-'}</td>
+                            <td><small>${clube.CONTACTO || '-'}</small></td>
+                            <td><small>${clube.OBS || '-'}</small></td>
+                            <td>
+                                <button class="btn-secondary" onclick="abrirModal('${ligaSelecionada}', ${clubes.indexOf(clube)})">
+                                    ✏️ Editar
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            html += `</tbody></table>`;
+            document.getElementById('tabContent').innerHTML = html;
+        }
+
+        function togglePagamento(liga, index) {
+            dados[liga][index].pago = !dados[liga][index].pago;
+            renderizarTabela();
+            atualizarStats();
+            mostrarToast('Status atualizado');
+        }
+
+        function abrirModal(liga, index) {
+            edicaoAtiva = { liga, index };
+            const clube = dados[liga][index];
+            
+            document.getElementById('modalClube').value = clube.CLUBES;
+            document.getElementById('modalNIF').value = clube.NIF || '';
+            document.getElementById('modalIBAN').value = clube.IBAN || '';
+            document.getElementById('modalValor').value = clube.valor || '';
+            document.getElementById('modalObs').value = clube.OBS || '';
+            
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').classList.remove('active');
+            edicaoAtiva = null;
+        }
+
+        function guardarEdicao() {
+            if (!edicaoAtiva) return;
+            
+            const { liga, index } = edicaoAtiva;
+            const clube = dados[liga][index];
+            
+            clube.NIF = document.getElementById('modalNIF').value;
+            clube.IBAN = document.getElementById('modalIBAN').value;
+            clube.valor = parseFloat(document.getElementById('modalValor').value) || 0;
+            clube.OBS = document.getElementById('modalObs').value;
+            
+            renderizarTabela();
+            atualizarStats();
+            fecharModal();
+            mostrarToast('Dados atualizados com sucesso');
+        }
+
+        function guardarDados() {
+            localStorage.setItem('futebolDados', JSON.stringify(dados));
+            mostrarToast('Dados guardados com sucesso!');
+        }
+
+        function exportarDados() {
+            const json = JSON.stringify(dados, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `clubes_futebol_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            mostrarToast('Dados exportados');
+        }
+
+        function limparDados() {
+            if (confirm('Tem a certeza que quer limpar todos os dados? Esta ação não pode ser desfeita.')) {
+                localStorage.removeItem('futebolDados');
+                dados = JSON.parse(JSON.stringify(dadosLigas));
+                renderizarTabela();
+                atualizarStats();
+                mostrarToast('Dados limpos');
+            }
+        }
+
+        function atualizarStats() {
+            const clubesAtivos = dados[ligaSelecionada] || [];
+            const pagos = clubesAtivos.filter(c => c.pago).length;
+            const naoPagos = clubesAtivos.filter(c => !c.pago).length;
+            
+            document.getElementById('totalClubes').textContent = clubesAtivos.length;
+            document.getElementById('paidCount').textContent = pagos;
+            document.getElementById('unpaidCount').textContent = naoPagos;
+        }
+
+        function mostrarToast(mensagem) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = mensagem;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Busca
+        document.addEventListener('DOMContentLoaded', () => {
+            inicializar();
+            
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                filtroAtivo = e.target.value;
+                renderizarTabela();
+            });
+
+            // Fechar modal ao clicar fora
+            document.getElementById('modal').addEventListener('click', (e) => {
+                if (e.target.id === 'modal') {
+                    fecharModal();
+                }
+            });
+        });
+
+        // Guardar dados periodicamente
+        setInterval(guardarDados, 30000);
+    </script>
+</body>
+</html>
