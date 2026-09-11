@@ -745,7 +745,11 @@
         </div>
 
         <div class="save-status">
-            <span class="save-dot" id="saveDot"></span>
+
+            <span
+                class="save-dot"
+                id="saveDot"
+            ></span>
 
             <span id="saveStatusText">
                 A iniciar armazenamento...
@@ -755,6 +759,7 @@
                 class="storage-info"
                 id="storageInfo"
             ></span>
+
         </div>
 
     </div>
@@ -1145,9 +1150,7 @@
 >
 
 
-<!-- =========================================================
-     XLSX
-========================================================= -->
+<!-- XLSX -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
@@ -1182,14 +1185,6 @@ let db = null;
 let armazenamentoAtual = '';
 
 let ultimaGravacao = null;
-
-
-/*
- * Fila de gravação.
- *
- * Evita que várias gravações simultâneas
- * se sobreponham.
- */
 
 let filaGravacao = Promise.resolve();
 
@@ -1590,6 +1585,74 @@ const dadosLigas = {
 
 
 /* =========================================================
+   ORDENAÇÃO ALFABÉTICA
+========================================================= */
+
+/*
+ * Esta função cria uma cópia ordenada dos clubes.
+ *
+ * IMPORTANTE:
+ * Não altera a ordem real de "dados".
+ *
+ * Assim conseguimos mostrar os clubes por ordem
+ * alfabética sem quebrar os índices usados por:
+ *
+ * - Editar
+ * - Remover
+ * - Duplicar
+ * - Pagamento
+ */
+
+function obterClubesOrdenados(
+    liga
+) {
+
+    const clubes =
+        Array.isArray(
+            dados[liga]
+        )
+            ? dados[liga]
+            : [];
+
+
+    return clubes
+        .map(
+            (clube, index) => ({
+                clube,
+                index
+            })
+        )
+        .sort(
+            (a, b) => {
+
+                const nomeA =
+                    String(
+                        a.clube.CLUBES || ''
+                    ).trim();
+
+
+                const nomeB =
+                    String(
+                        b.clube.CLUBES || ''
+                    ).trim();
+
+
+                return nomeA.localeCompare(
+                    nomeB,
+                    'pt-PT',
+                    {
+                        sensitivity: 'base',
+                        numeric: true
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
    UTILITÁRIOS
 ========================================================= */
 
@@ -1724,11 +1787,6 @@ function abrirBaseDados() {
                     atualizarInformacaoArmazenamento();
 
 
-                    console.log(
-                        '✅ IndexedDB disponível.'
-                    );
-
-
                     resolve(db);
 
                 };
@@ -1746,7 +1804,6 @@ function abrirBaseDados() {
 
                 };
 
-
         }
     );
 
@@ -1757,7 +1814,9 @@ function abrirBaseDados() {
    GUARDAR INDEXEDDB
 ========================================================= */
 
-function guardarNoIndexedDB(snapshot) {
+function guardarNoIndexedDB(
+    snapshot
+) {
 
     return new Promise(
         (resolve, reject) => {
@@ -1771,6 +1830,7 @@ function guardarNoIndexedDB(snapshot) {
                 );
 
                 return;
+
             }
 
 
@@ -1816,7 +1876,6 @@ function guardarNoIndexedDB(snapshot) {
 
                     };
 
-
             } catch (erro) {
 
                 reject(erro);
@@ -1847,6 +1906,7 @@ function lerDoIndexedDB() {
                 );
 
                 return;
+
             }
 
 
@@ -1893,7 +1953,6 @@ function lerDoIndexedDB() {
                         );
 
                     };
-
 
             } catch (erro) {
 
@@ -2072,7 +2131,7 @@ function atualizarInformacaoArmazenamento() {
 
 
 /* =========================================================
-   LOCAL STORAGE - FALLBACK
+   LOCAL STORAGE
 ========================================================= */
 
 function lerLocalStorage() {
@@ -2095,7 +2154,7 @@ function lerLocalStorage() {
     } catch (erro) {
 
         console.warn(
-            '⚠️ Não foi possível ler localStorage:',
+            'Não foi possível ler localStorage:',
             erro
         );
 
@@ -2107,7 +2166,9 @@ function lerLocalStorage() {
 }
 
 
-function guardarLocalStorage(snapshot) {
+function guardarLocalStorage(
+    snapshot
+) {
 
     try {
 
@@ -2122,7 +2183,7 @@ function guardarLocalStorage(snapshot) {
     } catch (erro) {
 
         console.error(
-            '❌ localStorage falhou:',
+            'localStorage falhou:',
             erro
         );
 
@@ -2135,64 +2196,28 @@ function guardarLocalStorage(snapshot) {
 
 
 /* =========================================================
-   SISTEMA PRINCIPAL DE GRAVAÇÃO
+   SISTEMA DE GRAVAÇÃO
 ========================================================= */
 
-function guardarInternamente(snapshot) {
+function guardarInternamente(
+    snapshot
+) {
 
-    return filaGravacao =
-        filaGravacao
-            .then(
-                async () => {
+    filaGravacao =
+        filaGravacao.then(
+            async () => {
 
-                    /*
-                     * Primeiro IndexedDB.
-                     */
+                if (db) {
 
-                    if (db) {
+                    try {
 
-                        try {
-
-                            await guardarNoIndexedDB(
-                                snapshot
-                            );
-
-
-                            armazenamentoAtual =
-                                'IndexedDB';
-
-
-                            atualizarEstadoGuardado();
-
-
-                            return true;
-
-                        } catch (erroIndexedDB) {
-
-                            console.warn(
-                                '⚠️ IndexedDB falhou. A tentar fallback:',
-                                erroIndexedDB
-                            );
-
-                        }
-
-                    }
-
-
-                    /*
-                     * Fallback localStorage.
-                     */
-
-                    const sucessoLocal =
-                        guardarLocalStorage(
+                        await guardarNoIndexedDB(
                             snapshot
                         );
 
 
-                    if (sucessoLocal) {
-
                         armazenamentoAtual =
-                            'localStorage';
+                            'IndexedDB';
 
 
                         atualizarEstadoGuardado();
@@ -2200,31 +2225,55 @@ function guardarInternamente(snapshot) {
 
                         return true;
 
+                    } catch (erroIndexedDB) {
+
+                        console.warn(
+                            'IndexedDB falhou:',
+                            erroIndexedDB
+                        );
+
                     }
 
+                }
 
-                    /*
-                     * Não foi possível guardar.
-                     */
+
+                const sucessoLocal =
+                    guardarLocalStorage(
+                        snapshot
+                    );
+
+
+                if (sucessoLocal) {
 
                     armazenamentoAtual =
-                        'memória';
+                        'localStorage';
 
 
-                    atualizarEstadoErro();
+                    atualizarEstadoGuardado();
 
 
-                    return false;
+                    return true;
 
                 }
-            );
+
+
+                armazenamentoAtual =
+                    'memória';
+
+
+                atualizarEstadoErro();
+
+
+                return false;
+
+            }
+        );
+
+
+    return filaGravacao;
 
 }
 
-
-/*
- * Função chamada por toda a aplicação.
- */
 
 async function salvarDadosSilencioso() {
 
@@ -2236,27 +2285,14 @@ async function salvarDadosSilencioso() {
 
     try {
 
-        const sucesso =
-            await guardarInternamente(
-                snapshot
-            );
-
-
-        if (!sucesso) {
-
-            console.error(
-                '❌ Não foi possível persistir os dados.'
-            );
-
-        }
-
-
-        return sucesso;
+        return await guardarInternamente(
+            snapshot
+        );
 
     } catch (erro) {
 
         console.error(
-            '❌ Erro inesperado ao guardar:',
+            'Erro ao guardar:',
             erro
         );
 
@@ -2270,10 +2306,6 @@ async function salvarDadosSilencioso() {
 
 }
 
-
-/* =========================================================
-   BOTÃO GUARDAR
-========================================================= */
 
 async function guardarDados() {
 
@@ -2303,7 +2335,7 @@ async function guardarDados() {
 
 
 /* =========================================================
-   NORMALIZAÇÃO DE DADOS
+   CARREGAR DADOS
 ========================================================= */
 
 function normalizarDadosGuardados(
@@ -2338,20 +2370,15 @@ function normalizarDadosGuardados(
             ) {
 
                 resultado[liga] =
-                    dadosGuardados[liga]
-                        .map(
-                            normalizarClube
-                        );
+                    dadosGuardados[liga].map(
+                        normalizarClube
+                    );
 
             }
 
         }
     );
 
-
-    /*
-     * Garantir que as ligas padrão existem.
-     */
 
     Object.keys(
         dadosLigas
@@ -2380,24 +2407,12 @@ function normalizarDadosGuardados(
 }
 
 
-/* =========================================================
-   CARREGAR DADOS
-========================================================= */
-
 async function carregarDados() {
-
-    /*
-     * Tentar abrir IndexedDB.
-     */
 
     try {
 
         await abrirBaseDados();
 
-
-        /*
-         * Procurar dados existentes.
-         */
 
         const dadosExistentes =
             await lerDoIndexedDB();
@@ -2418,20 +2433,13 @@ async function carregarDados() {
             atualizarEstadoGuardado();
 
 
-            console.log(
-                '✅ Dados carregados do IndexedDB.'
-            );
-
-
             return;
 
         }
 
 
         /*
-         * Não há dados no IndexedDB.
-         *
-         * Procurar dados antigos no localStorage.
+         * Procurar dados antigos.
          */
 
         const dadosAntigos =
@@ -2446,10 +2454,6 @@ async function carregarDados() {
                 );
 
 
-            /*
-             * Migrar para IndexedDB.
-             */
-
             await guardarNoIndexedDB(
                 clonarDados(dados)
             );
@@ -2462,13 +2466,8 @@ async function carregarDados() {
             atualizarEstadoGuardado();
 
 
-            console.log(
-                '✅ Dados antigos migrados para IndexedDB.'
-            );
-
-
             mostrarToast(
-                '✅ Dados existentes migrados para o novo armazenamento.'
+                '✅ Dados antigos migrados para IndexedDB.'
             );
 
 
@@ -2478,9 +2477,7 @@ async function carregarDados() {
 
 
         /*
-         * Não existem dados.
-         *
-         * Criar dados iniciais.
+         * Dados iniciais.
          */
 
         dados =
@@ -2501,22 +2498,13 @@ async function carregarDados() {
         atualizarEstadoGuardado();
 
 
-        console.log(
-            'ℹ️ Dados iniciais criados.'
-        );
-
-
     } catch (erroIndexedDB) {
 
         console.warn(
-            '⚠️ IndexedDB indisponível:',
+            'IndexedDB indisponível:',
             erroIndexedDB
         );
 
-
-        /*
-         * Fallback para localStorage.
-         */
 
         const dadosAntigos =
             lerLocalStorage();
@@ -2537,19 +2525,10 @@ async function carregarDados() {
             atualizarEstadoGuardado();
 
 
-            console.log(
-                '✅ Dados carregados do localStorage.'
-            );
-
-
             return;
 
         }
 
-
-        /*
-         * Sem dados guardados.
-         */
 
         dados =
             clonarDados(
@@ -2557,13 +2536,13 @@ async function carregarDados() {
             );
 
 
-        const conseguiuGuardar =
+        const sucesso =
             guardarLocalStorage(
                 clonarDados(dados)
             );
 
 
-        if (conseguiuGuardar) {
+        if (sucesso) {
 
             armazenamentoAtual =
                 'localStorage';
@@ -2581,7 +2560,7 @@ async function carregarDados() {
 
 
             mostrarToast(
-                '⚠️ O armazenamento do navegador está indisponível. Os dados funcionarão enquanto esta página estiver aberta.',
+                '⚠️ O armazenamento do navegador está indisponível.',
                 true
             );
 
@@ -2616,13 +2595,15 @@ function calcularTotalizacoes() {
 
             const pagos =
                 clubes.filter(
-                    clube => clube.pago === true
+                    clube =>
+                        clube.pago === true
                 );
 
 
             const naoPagos =
                 clubes.filter(
-                    clube => clube.pago !== true
+                    clube =>
+                        clube.pago !== true
                 );
 
 
@@ -2708,17 +2689,23 @@ function renderizarDashboard() {
     ).forEach(
         t => {
 
-            totalGeral += t.total;
+            totalGeral +=
+                t.total;
 
-            pagosGeral += t.pagos;
+            pagosGeral +=
+                t.pagos;
 
-            pendentesGeral += t.naoPagos;
+            pendentesGeral +=
+                t.naoPagos;
 
-            valorTotalGeral += t.valorTotal;
+            valorTotalGeral +=
+                t.valorTotal;
 
-            valorPagoGeral += t.valorPago;
+            valorPagoGeral +=
+                t.valorPago;
 
-            valorPendenteGeral += t.valorPendente;
+            valorPendenteGeral +=
+                t.valorPendente;
 
         }
     );
@@ -2783,10 +2770,6 @@ function renderizarDashboard() {
                     ${pendentesGeral}
                 </div>
 
-                <div class="card-subtext">
-                    ${pendentesGeral} clubes em falta
-                </div>
-
             </div>
 
 
@@ -2798,10 +2781,6 @@ function renderizarDashboard() {
 
                 <div class="card-value">
                     ${valorTotalGeral.toFixed(2)}€
-                </div>
-
-                <div class="card-subtext">
-                    Valor previsto
                 </div>
 
             </div>
@@ -3031,14 +3010,12 @@ function criarTabs() {
 }
 
 
-function mudarLiga(liga) {
+function mudarLiga(
+    liga
+) {
 
-    if (
-        !dados[liga]
-    ) {
-
+    if (!dados[liga]) {
         return;
-
     }
 
 
@@ -3081,17 +3058,15 @@ function mudarLiga(liga) {
 
 
 /* =========================================================
-   TABELA
+   TABELA - ORDENADA ALFABETICAMENTE
 ========================================================= */
 
 function renderizarTabela() {
 
-    const clubes =
-        Array.isArray(
-            dados[ligaSelecionada]
-        )
-            ? dados[ligaSelecionada]
-            : [];
+    const clubesOrdenados =
+        obterClubesOrdenados(
+            ligaSelecionada
+        );
 
 
     const termo =
@@ -3101,31 +3076,24 @@ function renderizarTabela() {
 
 
     const filtrados =
-        clubes
-            .map(
-                (clube, index) => ({
-                    clube,
-                    index
-                })
-            )
-            .filter(
-                item => {
+        clubesOrdenados.filter(
+            item => {
 
-                    if (!termo) {
-                        return true;
-                    }
-
-
-                    return String(
-                        item.clube.CLUBES || ''
-                    )
-                        .toLowerCase()
-                        .includes(
-                            termo
-                        );
-
+                if (!termo) {
+                    return true;
                 }
-            );
+
+
+                return String(
+                    item.clube.CLUBES || ''
+                )
+                    .toLowerCase()
+                    .includes(
+                        termo
+                    );
+
+            }
+        );
 
 
     let html = `
@@ -3384,7 +3352,7 @@ function renderizarTabela() {
 
 
 /* =========================================================
-   PAGAMENTOS
+   PAGAMENTO
 ========================================================= */
 
 async function togglePagamento(
@@ -3406,14 +3374,11 @@ async function togglePagamento(
         !dados[liga][index].pago;
 
 
-    marcarNaoGuardado();
-
-
     const estado =
         dados[liga][index].pago;
 
 
-    salvarDadosSilencioso();
+    marcarNaoGuardado();
 
 
     renderizarDashboard();
@@ -3423,11 +3388,18 @@ async function togglePagamento(
     atualizarStats();
 
 
-    mostrarToast(
-        estado
-            ? '✅ Pagamento marcado como pago.'
-            : '⚠️ Pagamento marcado como não pago.'
-    );
+    const sucesso =
+        await salvarDadosSilencioso();
+
+
+    if (!sucesso) {
+
+        mostrarToast(
+            '⚠️ O pagamento foi alterado, mas não foi possível guardar.',
+            true
+        );
+
+    }
 
 }
 
@@ -3576,7 +3548,8 @@ async function guardarEdicao() {
     clube.FUNÇÃO =
         document.getElementById(
             'modalFuncao'
-        ).value.trim() || 'MA';
+        ).value.trim() ||
+        'MA';
 
 
     clube.NIF =
@@ -3939,7 +3912,7 @@ async function removerClube(
     } else {
 
         mostrarToast(
-            '⚠️ Clube removido, mas não foi possível guardar a alteração.',
+            '⚠️ Clube removido, mas não foi possível guardar.',
             true
         );
 
@@ -4199,13 +4172,15 @@ function atualizarStats() {
 
     const pagos =
         clubes.filter(
-            clube => clube.pago === true
+            clube =>
+                clube.pago === true
         ).length;
 
 
     const naoPagos =
         clubes.filter(
-            clube => clube.pago !== true
+            clube =>
+                clube.pago !== true
         ).length;
 
 
@@ -4391,11 +4366,6 @@ async function processarImportacao(
                     );
 
 
-                /*
-                 * Voltar para a primeira liga
-                 * caso a atual já não exista.
-                 */
-
                 if (
                     !dados[
                         ligaSelecionada
@@ -4446,7 +4416,7 @@ async function processarImportacao(
             } catch (erro) {
 
                 console.error(
-                    '❌ Erro na importação:',
+                    'Erro na importação:',
                     erro
                 );
 
@@ -4490,6 +4460,7 @@ async function processarImportacao(
 
 /* =========================================================
    EXPORTAR EXCEL
+   Também ordena alfabeticamente
 ========================================================= */
 
 async function exportarExcel() {
@@ -4500,7 +4471,7 @@ async function exportarExcel() {
     ) {
 
         mostrarToast(
-            '❌ A biblioteca Excel não foi carregada. Verifica a ligação à internet.',
+            '❌ A biblioteca Excel não foi carregada.',
             true
         );
 
@@ -4570,8 +4541,6 @@ async function exportarExcel() {
             )
             : 0;
 
-
-    /* RESUMO */
 
     const resumoData = [
 
@@ -4691,17 +4660,11 @@ async function exportarExcel() {
     resumoSheet['!cols'] = [
 
         { wch: 28 },
-
         { wch: 18 },
-
         { wch: 15 },
-
         { wch: 18 },
-
         { wch: 18 },
-
         { wch: 18 },
-
         { wch: 20 }
 
     ];
@@ -4714,12 +4677,23 @@ async function exportarExcel() {
     );
 
 
-    /* CADA LIGA */
+    /*
+     * Cada liga.
+     *
+     * Também utiliza obterClubesOrdenados()
+     * para garantir a ordem alfabética.
+     */
 
-    Object.entries(
+    Object.keys(
         dados
     ).forEach(
-        ([liga, clubes]) => {
+        liga => {
+
+            const clubesOrdenados =
+                obterClubesOrdenados(
+                    liga
+                );
+
 
             const sheetData = [
 
@@ -4744,8 +4718,12 @@ async function exportarExcel() {
             ];
 
 
-            clubes.forEach(
-                clube => {
+            clubesOrdenados.forEach(
+                item => {
+
+                    const clube =
+                        item.clube;
+
 
                     sheetData.push([
 
@@ -4778,12 +4756,12 @@ async function exportarExcel() {
 
 
             const totalValor =
-                clubes.reduce(
-                    (sum, clube) =>
+                clubesOrdenados.reduce(
+                    (sum, item) =>
                         sum +
                         (
                             Number(
-                                clube.valor
+                                item.clube.valor
                             ) || 0
                         ),
                     0
@@ -4791,9 +4769,9 @@ async function exportarExcel() {
 
 
             const totalPagos =
-                clubes.filter(
-                    clube =>
-                        clube.pago === true
+                clubesOrdenados.filter(
+                    item =>
+                        item.clube.pago === true
                 ).length;
 
 
@@ -4812,7 +4790,7 @@ async function exportarExcel() {
 
                 '',
 
-                `${totalPagos}/${clubes.length}`,
+                `${totalPagos}/${clubesOrdenados.length}`,
 
                 Number(
                     totalValor.toFixed(2)
@@ -4834,21 +4812,13 @@ async function exportarExcel() {
             sheet['!cols'] = [
 
                 { wch: 25 },
-
                 { wch: 14 },
-
                 { wch: 12 },
-
                 { wch: 15 },
-
                 { wch: 28 },
-
                 { wch: 12 },
-
                 { wch: 14 },
-
                 { wch: 35 },
-
                 { wch: 40 }
 
             ];
@@ -4969,10 +4939,12 @@ async function limparDados() {
 
 
 /* =========================================================
-   ESCAPAR HTML
+   ESCAPE HTML
 ========================================================= */
 
-function escapeHtml(valor) {
+function escapeHtml(
+    valor
+) {
 
     if (
         valor === null ||
@@ -5014,7 +4986,9 @@ function escapeHtml(valor) {
 }
 
 
-function escapeHtmlAttribute(valor) {
+function escapeHtmlAttribute(
+    valor
+) {
 
     return String(
         valor || ''
@@ -5092,17 +5066,8 @@ document.addEventListener(
     'DOMContentLoaded',
     async () => {
 
-        /*
-         * Carregar dados antes de
-         * construir a interface.
-         */
-
         await carregarDados();
 
-
-        /*
-         * Construir interface.
-         */
 
         criarTabs();
 
@@ -5112,10 +5077,6 @@ document.addEventListener(
 
         atualizarStats();
 
-
-        /*
-         * Pesquisa.
-         */
 
         const searchInput =
             document.getElementById(
@@ -5141,10 +5102,6 @@ document.addEventListener(
         }
 
 
-        /*
-         * Modal editar.
-         */
-
         document
             .getElementById(
                 'modal'
@@ -5165,10 +5122,6 @@ document.addEventListener(
                 }
             );
 
-
-        /*
-         * Modal novo clube.
-         */
 
         document
             .getElementById(
@@ -5191,10 +5144,6 @@ document.addEventListener(
             );
 
 
-        /*
-         * Modal duplicar.
-         */
-
         document
             .getElementById(
                 'modalDuplicarClube'
@@ -5216,10 +5165,6 @@ document.addEventListener(
             );
 
 
-        /*
-         * Importar JSON.
-         */
-
         document
             .getElementById(
                 'importFile'
@@ -5229,10 +5174,6 @@ document.addEventListener(
                 processarImportacao
             );
 
-
-        /*
-         * ESC fecha todos os modais.
-         */
 
         document.addEventListener(
             'keydown',
@@ -5255,11 +5196,6 @@ document.addEventListener(
         );
 
 
-        /*
-         * Guardar quando a página
-         * fica escondida.
-         */
-
         document.addEventListener(
             'visibilitychange',
             () => {
@@ -5277,33 +5213,15 @@ document.addEventListener(
         );
 
 
-        /*
-         * Guardar antes de sair.
-         */
-
         window.addEventListener(
             'beforeunload',
             () => {
-
-                /*
-                 * IndexedDB não permite esperar
-                 * pelo resultado do beforeunload.
-                 *
-                 * No entanto, todas as alterações
-                 * já são guardadas imediatamente.
-                 */
 
                 salvarDadosSilencioso();
 
             }
         );
 
-
-        /*
-         * Autosave.
-         *
-         * 30 segundos.
-         */
 
         setInterval(
             () => {
@@ -5316,20 +5234,12 @@ document.addEventListener(
 
 
         console.log(
-            '======================================'
-        );
-
-        console.log(
-            '⚽ Gestor de Clubes de Futebol'
+            '⚽ Gestor de Clubes iniciado.'
         );
 
         console.log(
             'Armazenamento:',
             armazenamentoAtual
-        );
-
-        console.log(
-            '======================================'
         );
 
     }
